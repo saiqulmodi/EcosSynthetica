@@ -5,6 +5,7 @@ import { HI_DATA2 } from './lang/hi2.js';
 import { BN_DATA } from './lang/bn.js';
 import { BN_DATA2 } from './lang/bn2.js';
 import { TIERS, TRUTHS } from './Database.js';
+import { WHY } from './lang/why.js';
 
 export const LANGS = {
   en: { label: 'English', speech: 'en-IN' },
@@ -55,6 +56,8 @@ const UI = {
     'lab.synth': 'Synthesise (8 ATP · you have {n})', 'lab.full': 'Three slots are full. Tap a slot to remove a part.',
     'lab.noEnergy': 'Not enough energy (ATP). Close the Lab and let it refill for a few seconds.',
     'lab.fit': '{hits} of {needed} parts fit the real pathway.', 'lab.read': 'Read "How nature answers" again and match its words to the parts.',
+    'lab.bestFit': 'Why it is the best fit for the {name}:', 'lab.notFit': 'Not the best fit for the {name}.',
+    'lab.usedFor': 'Nature uses it for: {list}.', 'lab.general': 'It is a real defence, but nature relies on other parts here.',
     'lab.marks': 'Green parts fit, red parts do not.', 'lab.hint': 'Hint: nature also uses "{part}".', 'lab.hintTab': 'Hint: nature also uses "{part}" (in the {tab} tab).',
     'codex.title': 'Codex', 'codex.species': 'Species', 'codex.energy': 'Energy flow', 'codex.truth': 'The truth',
     'codex.sum': '{s} of {t} species logged · {m} in immune memory · {p} partners',
@@ -153,6 +156,8 @@ const UI = {
     'lab.synth': 'संश्लेषण करें (8 ATP · आपके पास {n})', 'lab.full': 'तीनों खाने भरे हैं। कोई भाग हटाने के लिए खाने पर टैप करें।',
     'lab.noEnergy': 'ऊर्जा (ATP) कम है। लैब बंद करें और कुछ सेकंड रुकें।',
     'lab.fit': '{needed} में से {hits} भाग असली रास्ते से मेल खाते हैं।', 'lab.read': '"प्रकृति कैसे जवाब देती है" फिर से पढ़ें और उसके शब्दों को भागों से मिलाएँ।',
+    'lab.bestFit': '{name} के लिए यह सबसे अच्छा क्यों है:', 'lab.notFit': '{name} के लिए यह सबसे अच्छा नहीं है।',
+    'lab.usedFor': 'प्रकृति इसका उपयोग करती है: {list}।', 'lab.general': 'यह एक असली बचाव है, पर यहाँ प्रकृति दूसरे भागों पर निर्भर करती है।',
     'lab.marks': 'हरे भाग सही हैं, लाल नहीं।', 'lab.hint': 'संकेत: प्रकृति "{part}" का भी उपयोग करती है।', 'lab.hintTab': 'संकेत: प्रकृति "{part}" का भी उपयोग करती है ({tab} टैब में)।',
     'codex.title': 'कोडेक्स', 'codex.species': 'जीव', 'codex.energy': 'ऊर्जा प्रवाह', 'codex.truth': 'सत्य',
     'codex.sum': '{t} में से {s} जीव दर्ज · {m} प्रतिरक्षा स्मृति में · {p} साथी',
@@ -251,6 +256,8 @@ const UI = {
     'lab.synth': 'সংশ্লেষণ করো (8 ATP · তোমার আছে {n})', 'lab.full': 'তিনটি ঘরই ভর্তি। একটি অংশ সরাতে ঘরে ট্যাপ করো।',
     'lab.noEnergy': 'শক্তি (ATP) কম। ল্যাব বন্ধ করে কয়েক সেকেন্ড অপেক্ষা করো।',
     'lab.fit': '{needed}টির মধ্যে {hits}টি অংশ আসল পথের সঙ্গে মেলে।', 'lab.read': '"প্রকৃতি কীভাবে উত্তর দেয়" আবার পড়ো, আর তার শব্দগুলো অংশের সঙ্গে মেলাও।',
+    'lab.bestFit': 'কেন এটি সেরা ({name}):', 'lab.notFit': 'এটি সেরা নয় ({name})।',
+    'lab.usedFor': 'প্রকৃতি এটি ব্যবহার করে: {list}।', 'lab.general': 'এটি আসল প্রতিরক্ষা, তবে এখানে প্রকৃতি অন্য অংশের উপর নির্ভর করে।',
     'lab.marks': 'সবুজ অংশ মেলে, লাল মেলে না।', 'lab.hint': 'ইঙ্গিত: প্রকৃতি "{part}"-ও ব্যবহার করে।', 'lab.hintTab': 'ইঙ্গিত: প্রকৃতি "{part}"-ও ব্যবহার করে ({tab} ট্যাবে)।',
     'codex.title': 'কোডেক্স', 'codex.species': 'জীব', 'codex.energy': 'শক্তি প্রবাহ', 'codex.truth': 'সত্য',
     'codex.sum': '{t}টির মধ্যে {s}টি জীব নথিভুক্ত · {m}টি প্রতিরোধ-স্মৃতিতে · {p}টি সঙ্গী',
@@ -361,5 +368,7 @@ export function dict(group, key, en) {
 export const tierT = (i) => ({ ...TIERS[i], ...dict('tiers', i, {}) });
 // An environment event's [name, text] in the current language.
 export const eventT = (ev) => dict('events', ev.name, [ev.name, ev.text]);
+// Why a Lab part is the best fit for a case, in the current language.
+export const whyT = (orgId, partId) => (WHY[lang] && WHY[lang][orgId] && WHY[lang][orgId][partId]) || (WHY.en[orgId] && WHY.en[orgId][partId]) || '';
 // A truth's [title, text] in the current language.
 export const truthT = (i) => dict('truths', i, [TRUTHS[i].title, TRUTHS[i].text]);

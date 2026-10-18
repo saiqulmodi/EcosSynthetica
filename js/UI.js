@@ -1,8 +1,8 @@
 // UI.js - HUD, profile sheet ("its side first", energy-flow strip, read-aloud),
 // Synthesis Lab, Codex, quiz, dialogs and the start screen, in three languages.
-import { TIERS, COMPONENTS, ROLE_LABEL, TROPHIC_LABEL, TRUTHS, organismsOfTier, getOrganism } from './Database.js';
+import { TIERS, COMPONENTS, ORGANISMS, ROLE_LABEL, TROPHIC_LABEL, TRUTHS, organismsOfTier, getOrganism } from './Database.js';
 import { RING } from './GameLoop.js';
-import { LANGS, getLang, setLang, t, o, comp, dict, tierT, truthT } from './i18n.js';
+import { LANGS, getLang, setLang, t, o, comp, dict, tierT, truthT, whyT } from './i18n.js';
 import { Speech } from './Speech.js';
 import { buildQuiz } from './Quiz.js';
 
@@ -315,9 +315,9 @@ export class UI {
     this.labSel = [];
     this.labMarks = {};
     this.labTab = this.game.tier;
+    this.lastPart = null;
     $('labFeedback').textContent = '';
     $('labFeedback').className = 'feedback';
-    $('partInfo').textContent = t('lab.partInfo');
     this.renderLab();
     this.open('lab');
   }
@@ -330,7 +330,7 @@ export class UI {
       list.innerHTML = `<p class="empty">${esc(t('lab.empty'))}</p>`;
     } else {
       list.innerHTML = targets.map((x) => `<button class="target ${x.id === this.labTarget ? 'on' : ''}" data-id="${x.id}" style="--c:${hex(RING[x.role])}"><b>${esc(o(x, 'name'))}</b><i>${esc(x.sci)}</i></button>`).join('');
-      list.querySelectorAll('.target').forEach((b) => { b.onclick = () => { this.labTarget = b.dataset.id; this.labSel = []; this.labMarks = {}; $('labFeedback').textContent = ''; this.renderLab(); }; });
+      list.querySelectorAll('.target').forEach((b) => { b.onclick = () => { this.labTarget = b.dataset.id; this.labSel = []; this.labMarks = {}; this.lastPart = null; $('labFeedback').textContent = ''; this.renderLab(); }; });
     }
     const org = this.labTarget && getOrganism(this.labTarget);
     $('labCase').innerHTML = org ? `
@@ -360,7 +360,7 @@ export class UI {
     grid.querySelectorAll('.part').forEach((b) => {
       b.onclick = () => {
         const id = b.dataset.id;
-        $('partInfo').innerHTML = `<b>${esc(compName(id))}.</b> ${esc(compDesc(id))}`;
+        this.lastPart = id;
         const at = this.labSel.indexOf(id);
         if (at >= 0) this.labSel.splice(at, 1);
         else if (this.labSel.length < 3) this.labSel.push(id);
@@ -370,6 +370,22 @@ export class UI {
       };
     });
     $('btnSynth').onclick = () => this.synthesise();
+    $('partInfo').innerHTML = this.lastPart ? this.partInfoHTML(this.lastPart) : esc(t('lab.partInfo'));
+  }
+
+  // What the part does, then why it is (or is not) the best fit for the open case.
+  partInfoHTML(id) {
+    let html = `<b>${esc(compName(id))}.</b> ${esc(compDesc(id))}`;
+    const org = this.labTarget && getOrganism(this.labTarget);
+    if (!org) return html;
+    const name = o(org, 'name');
+    if (org.recipes.some((r) => r.includes(id))) {
+      html += `<span class="why-fit"><b>${esc(t('lab.bestFit', { name }))}</b> ${esc(whyT(org.id, id))}</span>`;
+    } else {
+      const users = ORGANISMS.filter((x) => x.tier <= this.game.tier && x.recipes.some((r) => r.includes(id))).map((x) => o(x, 'name')).slice(0, 4);
+      html += `<span class="why-not"><b>${esc(t('lab.notFit', { name }))}</b> ${esc(users.length ? t('lab.usedFor', { list: users.join(', ') }) : t('lab.general'))}</span>`;
+    }
+    return html;
   }
 
   synthesise() {

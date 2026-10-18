@@ -177,6 +177,11 @@ p { margin: 0 0 8px; }
 .part.reveal { box-shadow: inset 0 0 0 2px var(--cyan); }
 #partInfo { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; min-height: 2.6em; }
 #partInfo b { color: var(--fg); }
+.why-fit, .why-not { display: block; margin-top: 8px; padding: 8px 10px; border-radius: 8px; color: var(--fg); }
+.why-fit { background: rgba(132, 201, 107, 0.14); border-left: 3px solid var(--green); }
+.why-fit b { color: var(--green) !important; }
+.why-not { background: rgba(232, 163, 61, 0.1); border-left: 3px solid var(--amber); }
+.why-not b { color: var(--amber) !important; }
 
 /* codex */
 .codex-sum { font: 12px var(--mono); color: var(--muted); }
@@ -317,9 +322,9 @@ blockquote { margin: 0 0 12px; padding: 8px 12px; border-left: 3px solid var(--g
           <div class="slots" id="labSlots"></div>
           <div class="synth-row"><button class="btn primary" id="btnSynth">Synthesise</button></div>
           <p class="feedback" id="labFeedback"></p>
+          <p id="partInfo">Tap a part to read what it does and add it to your combination.</p>
           <div class="tabs" id="labTabs"></div>
           <div id="labParts"></div>
-          <p id="partInfo">Tap a part to read what it does and add it to your combination.</p>
         </div>
       </div>
     </div>
