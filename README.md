@@ -27,13 +27,13 @@ Ayurveda, J. C. Bose, Ronald Ross in Secunderabad and the Madras TB study).
 4. **Ecosystem balance**: partners raise it; heat, drought and cold lower it. Below 50,
    opportunists (Serratia, Aspergillus, Candida) turn invasive.
 5. **Evolve**: after enough counters and a partnership, pass a 5-question quiz (3 correct).
-   Questions come from your own discoveries plus the School MCQ Bank.
+   Questions come from your own discoveries plus the NEET Learning Hub (https://saiqulmodi.github.io/NEET-Learning-Hub/).
    Single Cell -> Plant Seedling -> Honey Bee -> Human. 42 organisms, 70 Lab parts.
 
 ## Files
 - `js/Database.js`: the Data Hub (organisms, parts, stories, energy, human history, truths)
 - `js/i18n.js`, `js/lang/*.js`: English UI strings and the Hindi and Bengali translations
-- `js/Quiz.js`, `js/quizbank.js`: quiz builder; questions copied from the School MCQ Bank
+- `js/Quiz.js`, `js/quizbank.js`: quiz builder; questions copied from the NEET Data Hub (NEET chapters + School MCQ Bank foundation topics)
 - `js/Speech.js`: read-aloud with the device's own voices
 - `js/ScannerSystem.js`: raycast picking and scanning
 - `js/SynthesisEngine.js`: recipe checking and hints
@@ -42,6 +42,6 @@ Ayurveda, J. C. Bose, Ronald Ross in Secunderabad and the Madras TB study).
 - `js/Controls.js`: keyboard, mouse, touch joystick and pinch
 - `js/UI.js`: HUD, profiles, Lab, Codex, quiz, dialogs
 - `js/Sound.js`: short action sounds only (no music or loops)
-- `tools/build_quiz.py`: rebuilds `js/quizbank.js` from `School_MCQ_Bank\output\mcq_bank.db`
+- `tools/build_quiz.py`: rebuilds `js/quizbank.js` from `NEET_Data_Hub\output\neet_hub.db`
 
 Progress is saved in the browser (localStorage).
