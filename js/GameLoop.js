@@ -82,11 +82,16 @@ export class Game {
     this.scanned = valid(s && s.scanned);
     this.countered = valid(s && s.countered);
     this.recruited = valid(s && s.recruited);
+    // Wrong-try counts per case, so Lab reasons stay unlocked after a reload.
+    this.synth.attempts = {};
+    for (const [id, n] of Object.entries((s && s.attempts) || {})) {
+      if (getOrganism(id) && Number.isInteger(n) && n > 0) this.synth.attempts[id] = n;
+    }
   }
 
   save() {
     try {
-      localStorage.setItem(SAVE_KEY, JSON.stringify({ tier: this.tier, ep: this.ep, completed: this.completed, scanned: [...this.scanned], countered: [...this.countered], recruited: [...this.recruited] }));
+      localStorage.setItem(SAVE_KEY, JSON.stringify({ tier: this.tier, ep: this.ep, completed: this.completed, scanned: [...this.scanned], countered: [...this.countered], recruited: [...this.recruited], attempts: this.synth.attempts }));
     } catch (e) { /* storage blocked: progress lasts for this visit only */ }
   }
 
@@ -359,6 +364,7 @@ export class Game {
       if (org.role === 'mutualist') this.recruit(org); else this.counter(org);
     } else {
       this.sound.fail();
+      this.save();
     }
     return res;
   }
