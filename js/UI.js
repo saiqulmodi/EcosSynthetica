@@ -276,6 +276,13 @@ export class UI {
       </section>
       ${harm ? section('harm', t('prof.harm', { player: tierT(org.tier).player }), harm) : ''}
       ${section('answer', t(mutual ? 'prof.partner' : 'prof.answer'), o(org, 'counter'))}
+      <section class="solution">
+        <h3>${esc(t('prof.solution'))}</h3>
+        ${org.recipes.map((r, k) => `<p class="sol-lead">${esc(t(k ? 'prof.solutionAlt' : 'prof.solutionLead'))} <b>${r.map((id) => esc(compName(id))).join(' + ')}</b></p>
+        <ul class="sol-parts">${r.map((id) => `<li><b>${esc(compName(id))}</b> <i>${esc(kind(COMPONENTS[id].kind))}</i>
+          <p><span>${esc(t('prof.whatItIs'))}</span> ${esc(compDesc(id))}</p>
+          ${whyT(org.id, id) ? `<p><span>${esc(t('prof.whyWorks'))}</span> ${esc(whyT(org.id, id))}</p>` : ''}</li>`).join('')}</ul>`).join('')}
+      </section>
       <section class="human">
         <div class="prof-top"><h3>${esc(t('prof.human'))}</h3>${this.readButton('readHuman', t('prof.listen'))}</div>
         <ol class="ways">
@@ -295,7 +302,10 @@ export class UI {
     this.wireRead('readAll', () => [
       o(org, 'name'), t('prof.side'), o(org, 'survival'), t('prof.gift'), o(org, 'role_'), t('prof.without'), o(org, 'without'),
       t('prof.energy'), o(org, 'energy'), harm ? t('prof.harm', { player: tierT(org.tier).player }) : '', harm,
-      t(mutual ? 'prof.partner' : 'prof.answer'), o(org, 'counter'), ...human(), t('prof.fact'), o(org, 'fact'),
+      t(mutual ? 'prof.partner' : 'prof.answer'), o(org, 'counter'),
+      t('prof.solution'), ...org.recipes.flatMap((r, k) => [t(k ? 'prof.solutionAlt' : 'prof.solutionLead'),
+        ...r.flatMap((id) => [compName(id), `${t('prof.whatItIs')} ${compDesc(id)}`, whyT(org.id, id) ? `${t('prof.whyWorks')} ${whyT(org.id, id)}` : ''])]),
+      ...human(), t('prof.fact'), o(org, 'fact'),
     ]);
     this.wireRead('readHuman', human);
     $('profClose').onclick = () => this.close('sheet');
