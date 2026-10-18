@@ -378,6 +378,8 @@ export class UI {
     let html = `<b>${esc(compName(id))}.</b> ${esc(compDesc(id))}`;
     const org = this.labTarget && getOrganism(this.labTarget);
     if (!org) return html;
+    // Reasons unlock only after one wrong try for this case, so the first attempt is the player's own.
+    if (!this.game.synth.attempts[org.id]) return `${html}<span class="why-locked">${esc(t('lab.whyLocked'))}</span>`;
     const name = o(org, 'name');
     if (org.recipes.some((r) => r.includes(id))) {
       html += `<span class="why-fit"><b>${esc(t('lab.bestFit', { name }))}</b> ${esc(whyT(org.id, id))}</span>`;
