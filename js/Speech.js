@@ -33,10 +33,10 @@ export class Speech {
   }
 
   // parts: array of strings (HTML allowed). onDone runs when all are read or stopped.
-  speak(parts, onDone) {
+  speak(parts, onDone, langOverride = null) {
     if (!this.ok) return false;
     this.stop();
-    const lang = getLang();
+    const lang = langOverride || getLang();
     const voice = this.voiceFor(lang);
     const queue = parts.flatMap(sentences);
     let i = 0;
