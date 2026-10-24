@@ -129,7 +129,7 @@ export class UI {
     return `<button class="mini-btn read" id="${id}" aria-pressed="false">${esc(label)}</button>`;
   }
 
-  wireRead(id, parts) {
+  wireRead(id, parts, langOverride = null) {
     const btn = $(id);
     if (!btn) return;
     if (!this.speech.ok) { btn.hidden = true; return; }
@@ -141,7 +141,7 @@ export class UI {
       btn.dataset.idle = idle;
       btn.setAttribute('aria-pressed', 'true');
       btn.textContent = t('prof.stop');
-      this.speech.speak(typeof parts === 'function' ? parts() : parts, () => { btn.setAttribute('aria-pressed', 'false'); btn.textContent = idle; });
+      this.speech.speak(typeof parts === 'function' ? parts() : parts, () => { btn.setAttribute('aria-pressed', 'false'); btn.textContent = idle; }, langOverride);
     };
   }
 
@@ -554,7 +554,7 @@ export class UI {
       }).join('')}</div>
       ${answered ? `<p class="feedback ${z.picked === q.ans ? 'good' : 'bad'}">${esc(z.picked === q.ans ? t('quiz.right') : t('quiz.wrong', { a: q.opts[q.ans] }))}${q.why ? ` <span class="why">${esc(q.why)}</span>` : ''}</p>
         <div class="sheet-actions"><button class="btn primary" id="qzNext">${esc(t(z.i + 1 < z.qs.length ? 'quiz.next' : 'quiz.finish'))}</button></div>` : ''}`;
-    this.wireRead('readQ', () => [q.q, q.quote || '', ...q.opts.map((x, i) => `${'ABCD'[i]}. ${x}`)]);
+    this.wireRead('readQ', () => [q.q, q.quote || '', ...q.opts.map((x, i) => `${'ABCD'[i]}. ${x}`)], q.source === 'bank' ? 'en' : null);
     box.querySelectorAll('.qopt').forEach((b) => {
       b.onclick = () => {
         z.picked = Number(b.dataset.i);
