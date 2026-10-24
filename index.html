@@ -88,6 +88,7 @@ i { font-style: italic; }
 #actions { position: fixed; z-index: 5; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; align-items: flex-end; gap: 10px; }
 .act { width: 58px; height: 58px; border-radius: 50%; border: 1px solid var(--line); background: var(--panel); font: 700 12px var(--display); display: grid; place-items: center; }
 .act:hover { border-color: var(--muted); }
+#btnNeet { color: var(--cyan); border-color: color-mix(in srgb, var(--cyan) 50%, transparent); font-weight: 800; }
 #btnScan { width: 78px; height: 78px; font-size: 15px; color: var(--violet-ink); border: 0; background: conic-gradient(var(--fg) calc(var(--p, 0) * 360deg), var(--violet) 0); box-shadow: 0 0 0 4px rgba(155, 123, 224, 0.25); }
 #btnEvolve { position: fixed; z-index: 5; left: 50%; transform: translateX(-50%); bottom: calc(100px + env(safe-area-inset-bottom, 0px)); padding: 12px 22px; border-radius: 999px; border: 0; background: var(--green); color: #10240a; font: 800 16px var(--display); animation: pulse 1.6s ease-in-out infinite; }
 @media (min-width: 641px) { #btnEvolve { bottom: calc(24px + env(safe-area-inset-bottom, 0px)); } }
@@ -239,6 +240,7 @@ p { margin: 0 0 8px; }
 .begin-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
 #btnBegin { font-size: 17px; padding: 14px 22px; }
 #confirmNew { font-size: 14px; color: var(--amber); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
 /* read aloud, energy chain, quiz, language */
 .prof-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
 .prof-top h2, .prof-top h3 { min-width: 0; }
@@ -253,6 +255,7 @@ p { margin: 0 0 8px; }
 .chain-track { position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: linear-gradient(90deg, var(--amber), var(--pink)); opacity: 0.6; min-width: calc(var(--n) * 70px); }
 .spark { position: absolute; top: -4px; left: 0; width: 10px; height: 10px; border-radius: 50%; background: #ffd36a; box-shadow: 0 0 10px #ffd36a; animation: flow 3s linear infinite; animation-delay: var(--d); z-index: 2; }
 @keyframes flow { 0% { left: 0; background: #ffd36a; } 70% { background: #ffb36a; } 100% { left: calc(100% - 10px); background: var(--pink); opacity: 0.2; } }
+
 #quiz .panel { width: min(680px, 100%); }
 .quiz-head { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
 .question { font-size: 19px; line-height: 1.35; margin: 10px 0 12px; text-wrap: balance; }
@@ -270,9 +273,60 @@ blockquote { margin: 0 0 12px; padding: 8px 12px; border-left: 3px solid var(--g
 #langPick .tab { margin: 0; font-size: 15px; padding: 7px 16px; }
 .lang-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font: 12px var(--mono); color: var(--muted); }
 #fatal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 24px; background: var(--bg); text-align: center; }
+
+/* ---------- Academic / NEET Modal Additions ---------- */
+#academicModal .panel { width: min(720px, 100%); }
+.academic-badge { font: 600 11.5px/1 var(--mono); padding: 5px 10px; border-radius: 6px; background: rgba(95, 196, 208, 0.15); color: var(--cyan); border: 1px solid var(--cyan); display: inline-flex; align-items: center; gap: 6px; margin-bottom: 12px; text-transform: uppercase; }
+.academic-qtext { font: 700 18px/1.4 var(--display); margin-bottom: 16px; color: var(--fg); }
+.academic-filter-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+.academic-opt-list { display: grid; gap: 8px; }
+.academic-opt-btn { text-align: left; display: flex; gap: 12px; align-items: flex-start; border: 1px solid var(--line); background: var(--raise); border-radius: 10px; padding: 12px 14px; font-size: 15px; color: var(--fg); transition: border-color 0.15s, background 0.15s; }
+.academic-opt-btn:hover:not(:disabled) { border-color: var(--cyan); background: rgba(95, 196, 208, 0.1); }
+.academic-opt-btn .opt-letter { font: 600 12px var(--mono); color: var(--muted); background: var(--panel-solid); border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px; }
+.academic-opt-btn.correct { border-color: var(--green); background: rgba(132, 201, 107, 0.18); box-shadow: inset 0 0 0 1px var(--green); }
+.academic-opt-btn.wrong { border-color: var(--pink); background: rgba(228, 107, 134, 0.18); box-shadow: inset 0 0 0 1px var(--pink); }
+.academic-feedback { margin-top: 14px; padding: 12px 14px; border-radius: 10px; font-size: 14px; line-height: 1.45; }
+.academic-feedback.good { background: rgba(132, 201, 107, 0.14); border-left: 3px solid var(--green); color: var(--fg); }
+.academic-feedback.bad { background: rgba(228, 107, 134, 0.14); border-left: 3px solid var(--pink); color: var(--fg); }
+.academic-footer-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; gap: 8px; flex-wrap: wrap; }
+
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .spark { display: none; } }
 </style>
 <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
+    <!-- Firebase Analytics — anonymous usage tracking (no personal data) -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+      import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js";
+
+      const firebaseConfig = {
+        apiKey:            "AIzaSyDQbBGnHow7BlfcJ-gl7Wjq3VsPZDeWUOM",
+        authDomain:        "ecossynthetica.firebaseapp.com",
+        projectId:         "ecossynthetica",
+        storageBucket:     "ecossynthetica.firebasestorage.app",
+        messagingSenderId: "207120321568",
+        appId:             "1:207120321568:web:27cd4f11e093d363cb4045",
+        measurementId:     "G-KPJ9ZXP6QJ"
+      };
+
+      const app       = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      const sessionStart = Date.now();
+      logEvent(analytics, "game_session_start", {
+        platform: /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop"
+      });
+
+      window.addEventListener("beforeunload", () => {
+        const seconds = Math.round((Date.now() - sessionStart) / 1000);
+        logEvent(analytics, "game_session_end", { duration_seconds: seconds });
+      });
+
+      document.addEventListener("click", function onFirstClick() {
+        logEvent(analytics, "game_started");
+        document.removeEventListener("click", onFirstClick);
+      }, { once: true });
+    </script>
+
 </head>
 <body>
 <div id="stage"></div>
@@ -304,16 +358,53 @@ blockquote { margin: 0 0 12px; padding: 8px 12px; border-left: 3px solid var(--g
   <div id="toasts" aria-live="polite"></div>
   <button id="btnEvolve" hidden data-i18n="btn.evolve">Evolve</button>
   <div id="actions">
+    <button id="btnNeet" class="act" title="NEET / Academic Q&A (Q)">Q&A</button>
     <button id="btnCodex" class="act" title="Codex (C)" data-i18n="btn.codex">Codex</button>
     <button id="btnLab" class="act" title="Synthesis Lab (L)" data-i18n="btn.lab">Lab</button>
     <button id="btnScan" class="act" title="Scan (E)" data-i18n="btn.scan">Scan</button>
   </div>
   <div id="joy" hidden><div id="joyKnob"></div></div>
-  <div id="keysHint" data-i18n-html="hud.keys">WASD move · drag to look · wheel zoom<br>click or E scan · L lab · C codex</div>
+  <div id="keysHint" data-i18n-html="hud.keys">WASD move · drag to look · wheel zoom<br>click or E scan · L lab · C codex · Q neet</div>
 </div>
 
 <div id="sheetScrim" hidden></div>
 <section id="sheet" hidden aria-label="Organism profile"><div id="sheetBody"></div></section>
+
+<!-- Academic / NEET Modal -->
+<section id="academicModal" class="modal" hidden role="dialog" aria-labelledby="academicTitle">
+  <div class="panel">
+    <header>
+      <h2 id="academicTitle">Academic Mastery & NEET Preparation</h2>
+      <button class="x" id="btnAcademicClose">Close</button>
+    </header>
+    <div class="scroll">
+      <div class="academic-filter-bar">
+        <button class="tab on" data-filter="all">All Modules</button>
+        <button class="tab" data-filter="Biology">NEET Biology</button>
+        <button class="tab" data-filter="Chemistry">NEET Chemistry</button>
+        <button class="tab" data-filter="Physics">NEET Physics</button>
+        <button class="tab" data-filter="Foundation">Foundation</button>
+      </div>
+
+      <!-- Dynamic Chapter Selector -->
+      <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <label for="chapterSelect" style="font: 500 12px var(--mono); color: var(--muted);">CHAPTER:</label>
+        <select id="chapterSelect" style="background: var(--raise); border: 1px solid var(--line); color: var(--fg); border-radius: 6px; padding: 6px 10px; font: 13px var(--body); flex: 1; outline: none;">
+          <option value="all">All Chapters in Active Module</option>
+        </select>
+      </div>
+
+      <div id="academicBadge" class="academic-badge">Loading...</div>
+      <div id="academicQuestion" class="academic-qtext"></div>
+      <div id="academicOptions" class="academic-opt-list"></div>
+      <div id="academicFeedback" class="academic-feedback" hidden></div>
+      <div class="academic-footer-actions">
+        <span id="academicStats" style="font: 500 12px var(--mono); color: var(--muted);">Correct: 0 | Energy Gain: 0 ATP</span>
+        <button id="btnAcademicNext" class="btn primary" style="display:none;">Next Question</button>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section id="lab" class="modal" hidden aria-label="Synthesis Lab">
   <div class="panel">
@@ -385,6 +476,273 @@ blockquote { margin: 0 0 12px; padding: 8px 12px; border-left: 3px solid var(--g
 
 <div id="fatal" hidden><p data-i18n="fatal">This game needs WebGL. Please open it in a recent version of Chrome, Edge, Safari or Firefox.</p></div>
 
+<!-- Core Game Modules -->
 <script type="module" src="js/main.js"></script>
+
+<!-- Embedded Academic / NEET Mastery Engine -->
+<script>
+(function() {
+  const BUILTIN_FALLBACK = [
+    {
+      "id": "BIO_NEET_11_BOT_01",
+      "subject": "Biology",
+      "grade": 11,
+      "chapter_key": "bio_11_cell_unit_of_life",
+      "chapter_title": "Cell: The Unit of Life",
+      "neet_high_yield": true,
+      "question": "Which of the following organisms are known as the chief 'producers' in the oceans?",
+      "options": ["Dinoflagellates", "Diatoms", "Euglenoids", "Cyanobacteria"],
+      "answer": 1,
+      "explanation": "Diatoms are microscopic, photosynthetic protists with siliceous walls, functioning as the primary producers in ocean ecosystems.",
+      "reward": { "energy": 25, "xp": 15 }
+    },
+    {
+      "id": "BIO_NEET_11_BOT_02",
+      "subject": "Biology",
+      "grade": 11,
+      "chapter_key": "bio_11_cell_cycle_division",
+      "chapter_title": "Cell Cycle and Cell Division",
+      "neet_high_yield": true,
+      "question": "Crossing over between non-sister chromatids of homologous chromosomes occurs during which sub-stage of Prophase I?",
+      "options": ["Leptotene", "Zygotene", "Pachytene", "Diplotene"],
+      "answer": 2,
+      "explanation": "Recombination nodules appear and enzyme-mediated crossing over takes place during the Pachytene stage.",
+      "reward": { "energy": 30, "xp": 20 }
+    },
+    {
+      "id": "CHEM_NEET_11_ORG_01",
+      "subject": "Chemistry",
+      "grade": 11,
+      "chapter_key": "chem_11_chemical_bonding",
+      "chapter_title": "Chemical Bonding",
+      "neet_high_yield": true,
+      "question": "Which of the following carbocations exhibits the highest thermodynamic stability due to hyperconjugation?",
+      "options": ["Methyl carbocation", "Ethyl carbocation", "Isopropyl carbocation", "tert-Butyl carbocation"],
+      "answer": 3,
+      "explanation": "The tert-butyl carbocation has 9 alpha-hydrogens, providing extensive hyperconjugative stabilization.",
+      "reward": { "energy": 30, "xp": 20 }
+    },
+    {
+      "id": "PHY_NEET_11_MECH_01",
+      "subject": "Physics",
+      "grade": 11,
+      "chapter_key": "phy_11_work_energy_power",
+      "chapter_title": "Work, Energy and Power",
+      "neet_high_yield": true,
+      "question": "What is the work done by the centripetal force on an object in a uniform circular orbit after one complete revolution?",
+      "options": ["2π R F", "π R² F", "Zero", "F / (2π)"],
+      "answer": 2,
+      "explanation": "Centripetal force is always perpendicular to instantaneous displacement (cos 90° = 0), so work done is zero.",
+      "reward": { "energy": 25, "xp": 15 }
+    }
+  ];
+
+  class AcademicController {
+    constructor() {
+      this.manifest = [];
+      this.allQuestions = [];
+      this.currentFilter = 'all';
+      this.currentChapterKey = 'all';
+      this.currentQuestion = null;
+      this.correctCount = 0;
+      this.totalEnergyAwarded = 0;
+      this.init();
+    }
+
+    async init() {
+      try {
+        const res = await fetch('data/manifest.json');
+        if (res.ok) {
+          this.manifest = await res.json();
+          await this.loadAllActiveChapters();
+          this.populateChapterDropdown();
+        } else {
+          throw new Error('Manifest not found');
+        }
+      } catch (e) {
+        console.warn('[AcademicEngine] Running on internal built-in fallback set.', e);
+        this.allQuestions = BUILTIN_FALLBACK;
+      }
+      this.bindEvents();
+    }
+
+    async loadAllActiveChapters() {
+      const activeChapters = this.manifest.filter(m => m.current_volume > 0);
+      const loads = activeChapters.map(c => fetch(c.file).then(r => r.json()).catch(() => []));
+      const results = await Promise.all(loads);
+      this.allQuestions = results.flat();
+      if (this.allQuestions.length === 0) {
+        this.allQuestions = BUILTIN_FALLBACK;
+      }
+      console.log(`[AcademicEngine] Live bank loaded: ${this.allQuestions.length} total questions.`);
+    }
+
+    populateChapterDropdown() {
+      const select = document.getElementById('chapterSelect');
+      if (!select) return;
+
+      select.innerHTML = '<option value="all">All Chapters in Active Module</option>';
+      const active = this.manifest.filter(m => {
+        if (m.current_volume === 0) return false;
+        if (this.currentFilter === 'all') return true;
+        if (this.currentFilter === 'Foundation') return m.grade <= 10;
+        return m.subject.toLowerCase() === this.currentFilter.toLowerCase();
+      });
+
+      active.forEach(ch => {
+        const opt = document.createElement('option');
+        opt.value = ch.chapter_key;
+        opt.innerText = `${ch.subject} (Gr ${ch.grade}) • ${ch.chapter_title} [${ch.current_volume} Qs]`;
+        select.appendChild(opt);
+      });
+      select.value = 'all';
+      this.currentChapterKey = 'all';
+    }
+
+    bindEvents() {
+      const modal = document.getElementById('academicModal');
+      const btnOpen = document.getElementById('btnNeet');
+      const btnClose = document.getElementById('btnAcademicClose');
+      const btnNext = document.getElementById('btnAcademicNext');
+      const chSelect = document.getElementById('chapterSelect');
+
+      if (btnOpen) {
+        btnOpen.addEventListener('click', () => {
+          modal.hidden = false;
+          this.loadNextQuestion();
+        });
+      }
+
+      if (btnClose) {
+        btnClose.addEventListener('click', () => {
+          modal.hidden = true;
+        });
+      }
+
+      if (btnNext) {
+        btnNext.addEventListener('click', () => {
+          this.loadNextQuestion();
+        });
+      }
+
+      if (chSelect) {
+        chSelect.addEventListener('change', (e) => {
+          this.currentChapterKey = e.target.value;
+          this.loadNextQuestion();
+        });
+      }
+
+      document.querySelectorAll('#academicModal .academic-filter-bar .tab').forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          document.querySelectorAll('#academicModal .academic-filter-bar .tab').forEach(t => t.classList.remove('on'));
+          e.target.classList.add('on');
+          this.currentFilter = e.target.getAttribute('data-filter');
+          this.populateChapterDropdown();
+          this.loadNextQuestion();
+        });
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if ((e.key === 'q' || e.key === 'Q') && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) {
+          modal.hidden = !modal.hidden;
+          if (!modal.hidden) this.loadNextQuestion();
+        }
+      });
+    }
+
+    getFilteredPool() {
+      let pool = this.allQuestions;
+
+      if (this.currentChapterKey !== 'all') {
+        return pool.filter(q => q.chapter_key === this.currentChapterKey);
+      }
+
+      if (this.currentFilter !== 'all') {
+        if (this.currentFilter === 'Foundation') {
+          pool = pool.filter(q => q.grade <= 10 || !q.neet_high_yield);
+        } else {
+          pool = pool.filter(q => q.subject.toLowerCase() === this.currentFilter.toLowerCase());
+        }
+      }
+      return pool;
+    }
+
+    loadNextQuestion() {
+      const pool = this.getFilteredPool();
+      const feedback = document.getElementById('academicFeedback');
+      const btnNext = document.getElementById('btnAcademicNext');
+      const optsContainer = document.getElementById('academicOptions');
+
+      feedback.hidden = true;
+      btnNext.style.display = 'none';
+      optsContainer.innerHTML = '';
+
+      if (pool.length === 0) {
+        document.getElementById('academicBadge').innerText = 'No Questions';
+        document.getElementById('academicQuestion').innerText = 'No questions found for this selection.';
+        return;
+      }
+
+      this.currentQuestion = pool[Math.floor(Math.random() * pool.length)];
+      const q = this.currentQuestion;
+
+      const title = q.chapter_key ? q.chapter_key.replace(/_/g, ' ').toUpperCase() : (q.chapter || 'GENERAL');
+      document.getElementById('academicBadge').innerText = `${q.subject} • Class ${q.grade} • ${title}`;
+      document.getElementById('academicQuestion').innerText = q.question;
+
+      q.options.forEach((optText, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'academic-opt-btn';
+        btn.innerHTML = `<span class="opt-letter">${String.fromCharCode(65 + idx)}</span> <span>${optText}</span>`;
+        btn.onclick = () => this.evaluateAnswer(idx);
+        optsContainer.appendChild(btn);
+      });
+    }
+
+    evaluateAnswer(selectedIdx) {
+      const q = this.currentQuestion;
+      if (!q) return;
+
+      const opts = document.querySelectorAll('.academic-opt-btn');
+      opts.forEach(b => b.disabled = true);
+
+      const feedback = document.getElementById('academicFeedback');
+      const btnNext = document.getElementById('btnAcademicNext');
+      const isCorrect = selectedIdx === q.answer;
+
+      opts[selectedIdx].classList.add(isCorrect ? 'correct' : 'wrong');
+      if (!isCorrect) {
+        opts[q.answer].classList.add('correct');
+      }
+
+      if (isCorrect) {
+        this.correctCount++;
+        const energyReward = q.reward?.energy || 25;
+        this.totalEnergyAwarded += energyReward;
+
+        feedback.className = 'academic-feedback good';
+        feedback.innerHTML = `<b>Correct!</b> (+${energyReward} ATP Energy)<br>${q.explanation}`;
+
+        const atpMeter = document.querySelector('#mAtp b');
+        if (atpMeter) {
+          const currentVal = parseInt(atpMeter.innerText, 10) || 100;
+          atpMeter.innerText = Math.min(currentVal + energyReward, 200);
+        }
+      } else {
+        feedback.className = 'academic-feedback bad';
+        feedback.innerHTML = `<b>Incorrect.</b> Correct answer: <b>${String.fromCharCode(65 + q.answer)}</b>.<br>${q.explanation}`;
+      }
+
+      feedback.hidden = false;
+      btnNext.style.display = 'inline-block';
+      document.getElementById('academicStats').innerText = `Correct: ${this.correctCount} | Energy Gain: +${this.totalEnergyAwarded} ATP`;
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    window.academicController = new AcademicController();
+  });
+})();
+</script>
 </body>
 </html>
