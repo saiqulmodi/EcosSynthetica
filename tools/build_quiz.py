@@ -10,7 +10,7 @@ HUB = Path(r"C:\Users\saiqu\Projects\NEET_Data_Hub\output\neet_hub.db")
 OUT = ROOT / "js" / "quizbank.js"
 
 # Maximize active questions per form (4,000 total across 4 forms)
-PER_FORM = 1000
+PER_FORM = 5000
 
 # Subject and theme weighting per gameplay tier/form:
 # Form 0: Cytology, Microorganisms, Optics, Atomic Structure, Basic Nature
