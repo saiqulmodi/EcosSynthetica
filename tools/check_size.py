@@ -13,7 +13,7 @@ MB = 1024 * 1024
 LIMIT = 20 * MB
 
 # Not shipped: tools, docs, servers, native app projects, build files.
-SKIP_DIRS = {".git", "tools", "docs", "server", "android", "www", "node_modules", "__pycache__"}
+SKIP_DIRS = {".git", "tools", "docs", "server", "tests", "android", "www", "node_modules", "__pycache__"}
 SKIP_FILES = ["*.py", "*.pyc", "*.bat", "*.bak", "package.json", "package-lock.json",
               "capacitor.config.json", "README.md", ".gitignore", "*.md"]
 

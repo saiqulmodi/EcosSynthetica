@@ -27,6 +27,7 @@ async function startScientist(profile) {
 
 // Later modules add to the Scientist game (dashboard, journal, experiments, tutor).
 export const scientistAddOns = [];
+scientistAddOns.push((game, ui, profile) => import('./tiers/scientist/AddOns.js').then((m) => m.mount(game, ui, profile)));
 
 const tiers = {
   explorer: { available: true, start: (p) => import('./tiers/explorer/ExplorerGame.js').then((m) => m.start(p)) },
