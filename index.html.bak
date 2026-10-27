@@ -293,40 +293,6 @@ blockquote { margin: 0 0 12px; padding: 8px 12px; border-left: 3px solid var(--g
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .spark { display: none; } }
 </style>
 <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
-    <!-- Firebase Analytics — anonymous usage tracking (no personal data) -->
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-      import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js";
-
-      const firebaseConfig = {
-        apiKey:            "AIzaSyDQbBGnHow7BlfcJ-gl7Wjq3VsPZDeWUOM",
-        authDomain:        "ecossynthetica.firebaseapp.com",
-        projectId:         "ecossynthetica",
-        storageBucket:     "ecossynthetica.firebasestorage.app",
-        messagingSenderId: "207120321568",
-        appId:             "1:207120321568:web:27cd4f11e093d363cb4045",
-        measurementId:     "G-KPJ9ZXP6QJ"
-      };
-
-      const app       = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
-
-      const sessionStart = Date.now();
-      logEvent(analytics, "game_session_start", {
-        platform: /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop"
-      });
-
-      window.addEventListener("beforeunload", () => {
-        const seconds = Math.round((Date.now() - sessionStart) / 1000);
-        logEvent(analytics, "game_session_end", { duration_seconds: seconds });
-      });
-
-      document.addEventListener("click", function onFirstClick() {
-        logEvent(analytics, "game_started");
-        document.removeEventListener("click", onFirstClick);
-      }, { once: true });
-    </script>
-
 </head>
 <body>
 <div id="stage"></div>
