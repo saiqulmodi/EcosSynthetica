@@ -4,7 +4,7 @@ import { TIERS, COMPONENTS, ORGANISMS, ROLE_LABEL, TROPHIC_LABEL, TRUTHS, organi
 import { RING } from './GameLoop.js';
 import { LANGS, getLang, setLang, t, o, comp, dict, tierT, truthT, whyT } from './i18n.js';
 import { Speech } from './Speech.js';
-import { buildQuiz } from './Quiz.js';
+import { buildQuiz, loadBank } from './Quiz.js';
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -504,9 +504,10 @@ export class UI {
   }
 
   // ---------- quiz ----------
-  openQuiz(mode) {
+  async openQuiz(mode) {
     const g = this.game;
-    this.quiz = { mode, qs: buildQuiz(g.scanned, g.tier), i: 0, score: 0, picked: null, done: false };
+    await loadBank(g.tier);
+    this.quiz ={ mode, qs: buildQuiz(g.scanned, g.tier), i: 0, score: 0, picked: null, done: false };
     this.renderQuiz();
     this.open('quiz');
   }
