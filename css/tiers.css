@@ -62,3 +62,14 @@
 .paths-foot a.btn { text-decoration: none; color: inherit; display: inline-flex; align-items: center; }
 .sv-check { flex-direction: row !important; align-items: flex-start; gap: 10px !important; font: 15px var(--body) !important; color: var(--fg) !important; }
 .sv-check input { width: 20px; height: 20px; margin-top: 2px; flex: none; }
+
+/* daily question */
+.daily { background: var(--panel-solid); border: 1px solid var(--line); border-left: 4px solid var(--amber); border-radius: 18px; padding: 14px 18px; }
+.daily-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.daily h2 { font: 800 19px var(--display); margin: 0 0 6px; }
+.daily-streak { font: 600 13px var(--mono); color: var(--amber); }
+.daily-q { font-size: 16px; margin: 4px 0 10px; }
+.daily-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin-bottom: 8px; }
+.daily-opts .btn { min-height: 44px; text-align: left; }
+.daily .feedback.good { color: var(--green); }
+.daily .feedback.bad { color: var(--pink); }

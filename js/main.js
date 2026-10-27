@@ -3,6 +3,16 @@ import { Shell } from './app/Shell.js';
 import { saveKeyFor } from './app/Profile.js';
 import { addShareButtons } from './teacher/share.js';
 import { addServerButton, llm } from './app/Connect.js';
+import { addDaily } from './app/daily.js';
+import { track } from './app/hooks.js';
+import { watchPerformance } from './app/perf.js';
+import { addStrings } from './app/strings.js';
+
+addStrings({
+  en: { 'hk.second': 'Second chance: keep going here' },
+  hi: { 'hk.second': 'दूसरा मौका: यहीं से जारी रखें' },
+  bn: { 'hk.second': 'দ্বিতীয় সুযোগ: এখান থেকেই চালিয়ে যাও' },
+});
 
 const $ = (id) => document.getElementById(id);
 
@@ -18,6 +28,10 @@ async function startScientist(profile) {
     const game = new Game($('stage'), ui, sound);
     ui.bind(game);
     window.ecos = game; // handy for testing from the browser console
+    watchPerformance(game.renderer);
+    track('level_start', { tier: 'scientist', form: game.tier });
+    const evolve = game.evolve.bind(game);
+    game.evolve = () => { const from = game.tier; evolve(); if (game.tier !== from) { track('level_complete', { tier: 'scientist', form: from }); track('level_start', { tier: 'scientist', form: game.tier }); } };
     window.ecosUI = ui;
     loadBank(game.tier);
     for (const fn of scientistAddOns) await fn(game, ui, profile);
@@ -40,6 +54,7 @@ const tiers = {
 const shell = new Shell(tiers);
 addShareButtons(shell);
 addServerButton(shell);
+addDaily(shell);
 window.ecosApp = { shell, tiers, scientistAddOns, llm };
 shell.show();
 

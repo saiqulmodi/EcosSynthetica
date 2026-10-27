@@ -9,6 +9,7 @@ import { Mentor } from '../../ai/Mentor.js';
 import { CASES } from './cases.js';
 import './tracks/cases.js';
 import { RESEARCH } from './research/Research.js';
+import { track } from '../../app/hooks.js';
 
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const L = (obj) => (obj && typeof obj === 'object' ? obj[getLang()] || obj.en : obj) || '';
@@ -138,6 +139,7 @@ class ProfessionalGame {
     const decisions = this.decisionsOf(c);
     // A new case starts fresh; a language change keeps the choices and the result.
     if (this.choiceFor !== id) {
+      track('level_start', { tier: 'professional', case: id });
       this.choice = Object.fromEntries(decisions.map((d) => [d.id, d.options[0].id]));
       this.choiceFor = id;
       this.result = null;
@@ -172,6 +174,7 @@ class ProfessionalGame {
 
   run(c, decisions) {
     this.result = CASES[c.model].run(c, this.choice);
+    track('level_complete', { tier: 'professional', case: c.id, score: Math.round(this.result.score * 100) });
     const st = this.pr.cases[c.id] || {};
     const stars = starsFor(this.result.score);
     this.pr.cases[c.id] = {

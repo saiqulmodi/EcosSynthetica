@@ -63,7 +63,7 @@
 .rs-field input[type="range"] { accent-color: var(--paccent); min-width: 160px; }
 .rs-plots { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
 .rs-count { width: 90px; }
-.rs-map { height: 380px; border-radius: 12px; overflow: hidden; border: 1px solid var(--pline); margin-bottom: 10px; background: var(--pbg); }
+.rs-map { border-radius: 12px; overflow: hidden; border: 1px solid var(--pline); margin-bottom: 10px; background: var(--pbg); }
 .rs-offline { padding: 16px; color: var(--pmut); }
 #pro .exp-checkline { background: var(--pbg); border-left: 3px solid var(--green); padding: 10px 12px; border-radius: 8px; }
 #pro .mono { font-family: var(--mono); }

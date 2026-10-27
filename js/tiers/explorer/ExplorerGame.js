@@ -8,6 +8,8 @@ import { addStrings, tr } from '../../app/strings.js';
 import { LANGS, getLang, setLang } from '../../i18n.js';
 import { Sound } from '../../Sound.js';
 import { bankItems, shuffle } from '../../Quiz.js';
+import { track } from '../../app/hooks.js';
+import { watchPerformance } from '../../app/perf.js';
 import {
   progress, saveProgress, completeModule, award, recordAttempt, BANDS, bandOpen, explorerDone, EXPLORER_MODULES,
 } from '../../app/Profile.js';
@@ -52,6 +54,7 @@ class ExplorerGame {
       <div class="ex-wrap" id="exWrap" hidden><div class="ex-panel" id="exPanel"></div></div>`;
     document.body.appendChild(this.root);
     this.world = new World(this.root.querySelector('.ex-stage'), { trees: this.pr.trees || 0 });
+    watchPerformance(this.world.renderer);
     // A river the child already cleaned stays clean.
     if ((this.pr.modules.pollution || {}).status === 'done') { this.world.setRiverClean(1); this.world.addFish(6); }
     this.$ = (id) => this.root.querySelector('#' + id);
@@ -182,6 +185,7 @@ class ExplorerGame {
   }
 
   async runModule(id) {
+    track('level_start', { tier: 'explorer', module: id });
     this.abortMission();
     const run = (this.run = { id, aborted: false });
     const cards = this.storyCards(id);
@@ -289,6 +293,7 @@ class ExplorerGame {
     const prev = (this.pr.modules[id] || {}).stars || 0;
     const wasDone = explorerDone(this.p);
     const r = completeModule(id, check.score / check.n, wrong, this.p);
+    track('level_complete', { tier: 'explorer', module: id, stars: r.stars });
     const gained = r.status === 'done' ? Math.max(0, r.stars - prev) * 5 + 2 : 0;
     this.pr.seeds = (this.pr.seeds || 0) + gained;
     const badge = r.status === 'done' && award(id, this.p);

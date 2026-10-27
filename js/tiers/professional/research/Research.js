@@ -10,7 +10,6 @@ import { parseCSV, toCSV, linreg, expfit, diversity } from './stats.js';
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const L = (o) => (o && typeof o === 'object' ? o[getLang()] || o.en : o) || '';
 const num = (v, d = 1) => (Math.abs(v) >= 1000 ? Math.round(v).toLocaleString('en-IN') : (+v).toFixed(d));
-const LEAFLET = 'https://unpkg.com/leaflet@1.9.4/dist/';
 
 function download(name, text) {
   const a = document.createElement('a');
@@ -162,37 +161,22 @@ export const RESEARCH = {
   },
 
   // ---------- map ----------
-  async viewMap(body) {
-    body.innerHTML = `<p class="lead">${esc(tr('rs.mapLead'))}</p><div id="rsMap" class="rs-map"></div>
+  // Drawn by the game itself (no map scripts, no tiles): reserves placed by latitude and longitude.
+  viewMap(body) {
+    const W = 520, H = 560, lng0 = 67, lng1 = 98, lat0 = 6, lat1 = 37.5;
+    const X = (lng) => 30 + ((lng - lng0) / (lng1 - lng0)) * (W - 60);
+    const Y = (lat) => 20 + (1 - (lat - lat0) / (lat1 - lat0)) * (H - 50);
+    const grid = [];
+    for (let lng = 70; lng <= 95; lng += 5) grid.push(`<line class="grid" x1="${X(lng)}" x2="${X(lng)}" y1="${Y(lat1)}" y2="${Y(lat0)}"/><text x="${X(lng)}" y="${H - 12}" text-anchor="middle">${lng}°E</text>`);
+    for (let lat = 10; lat <= 35; lat += 5) grid.push(`<line class="grid" x1="${X(lng0)}" x2="${X(lng1)}" y1="${Y(lat)}" y2="${Y(lat)}"/><text x="${X(lng0) - 4}" y="${Y(lat) + 4}" text-anchor="end">${lat}°N</text>`);
+    const tropic = `<line x1="${X(lng0)}" x2="${X(lng1)}" y1="${Y(23.44)}" y2="${Y(23.44)}" stroke="var(--amber)" stroke-dasharray="5 4" opacity="0.6"/><text x="${X(lng1) - 4}" y="${Y(23.44) - 5}" text-anchor="end" style="fill:var(--amber)">${esc(tr('rs.tropic'))}</text>`;
+    const pts = this.pack.reserves.map((r) => `<g><circle cx="${X(r.lng)}" cy="${Y(r.lat)}" r="6" fill="#b7791f" stroke="#fff" stroke-width="1.5"/><text x="${X(r.lng) + 9}" y="${Y(r.lat) + 4}" style="fill:var(--pfg);font-weight:600">${esc(L(r.name))}</text></g>`).join('');
+    const osm = (r) => `https://www.openstreetmap.org/?mlat=${r.lat}&mlon=${r.lng}#map=9/${r.lat}/${r.lng}`;
+    body.innerHTML = `<p class="lead">${esc(tr('rs.mapLead'))}</p>
+      <div class="rs-map"><svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(tr('rs.tabMap'))}">${grid.join('')}${tropic}${pts}</svg></div>
       <table class="pro-table"><thead><tr><th>${esc(tr('rs.reserve'))}</th><th>${esc(tr('rs.state'))}</th><th>lat, lng</th></tr></thead><tbody>
-      ${this.pack.reserves.map((r) => `<tr><td>${esc(L(r.name))}</td><td>${esc(L(r.state))}</td><td class="mono">${r.lat.toFixed(2)}, ${r.lng.toFixed(2)}</td></tr>`).join('')}</tbody></table>`;
-    const box = body.querySelector('#rsMap');
-    try {
-      if (!navigator.onLine) throw new Error('offline');
-      await loadLeaflet();
-      const map = window.L.map(box, { scrollWheelZoom: false }).setView([22.5, 80], 4);
-      window.L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 12, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
-      for (const r of this.pack.reserves) window.L.circleMarker([r.lat, r.lng], { radius: 7, color: '#b7791f', fillOpacity: 0.8 }).addTo(map).bindPopup(`<b>${esc(L(r.name))}</b><br>${esc(L(r.state))}`);
-    } catch (e) {
-      box.innerHTML = `<p class="rs-offline">${esc(tr('rs.mapOffline'))}</p>`;
-    }
+      ${this.pack.reserves.map((r) => `<tr><td><a href="${osm(r)}" target="_blank" rel="noopener">${esc(L(r.name))}</a></td><td>${esc(L(r.state))}</td><td class="mono">${r.lat.toFixed(2)}, ${r.lng.toFixed(2)}</td></tr>`).join('')}</tbody></table>
+      <p class="small">${esc(tr('rs.mapNote'))}</p>`;
   },
 };
 
-let leafletReady = null;
-function loadLeaflet() {
-  if (!leafletReady) {
-    leafletReady = new Promise((res, rej) => {
-      const css = document.createElement('link');
-      css.rel = 'stylesheet';
-      css.href = LEAFLET + 'leaflet.css';
-      document.head.appendChild(css);
-      const s = document.createElement('script');
-      s.src = LEAFLET + 'leaflet.js';
-      s.onload = () => res(window.L);
-      s.onerror = () => { leafletReady = null; rej(new Error('leaflet')); };
-      document.head.appendChild(s);
-    });
-  }
-  return leafletReady;
-}

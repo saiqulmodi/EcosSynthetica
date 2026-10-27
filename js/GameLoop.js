@@ -174,6 +174,14 @@ export class Game {
     this.ui.showTierIntro(this.tier);
   }
 
+  // Second chance: keep everything, push the nearest attackers back, half integrity.
+  revive() {
+    const p = this.player.position;
+    for (const e of [...this.entities]) if (e.state !== 'ally' && e.root.position.distanceTo(p) < 9) this.removeEntity(e);
+    this.integrity = 50;
+    this.over = false;
+  }
+
   retry() {
     for (const e of [...this.entities]) this.removeEntity(e);
     this.integrity = 100;

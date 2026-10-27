@@ -32,7 +32,7 @@ export class Shell {
 
   show() {
     this.el.hidden = false;
-    if (!activeProfile()) this.editProfile(true);
+    if (!activeProfile()) createProfile(`${tr('shell.player')} 1`, 5);
     this.render();
   }
 
