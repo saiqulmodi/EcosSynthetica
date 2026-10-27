@@ -1,6 +1,7 @@
 // main.js - boots the path screen; each tier is loaded only when it is chosen.
 import { Shell } from './app/Shell.js';
 import { saveKeyFor } from './app/Profile.js';
+import { addShareButtons } from './teacher/share.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -36,6 +37,7 @@ const tiers = {
 };
 
 const shell = new Shell(tiers);
+addShareButtons(shell);
 window.ecosApp = { shell, tiers, scientistAddOns };
 shell.show();
 

@@ -55,3 +55,8 @@
 .chart .grid { stroke: rgba(255, 255, 255, 0.06); }
 .legend { display: flex; gap: 12px; flex-wrap: wrap; font: 12px var(--mono); color: var(--muted); margin: 4px 0; }
 .legend i { display: inline-block; width: 12px; height: 3px; border-radius: 2px; margin-right: 5px; vertical-align: middle; background: var(--c); }
+
+/* share with teacher */
+.tc-qr { width: min(260px, 100%); background: #fff; padding: 8px; border-radius: 10px; }
+.tc-qr svg { display: block; width: 100%; height: auto; }
+.paths-foot a.btn { text-decoration: none; color: inherit; display: inline-flex; align-items: center; }
