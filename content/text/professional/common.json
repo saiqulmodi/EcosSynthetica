@@ -63,7 +63,7 @@
   {
    "id": "research",
    "icon": "🔭",
-   "ready": false,
+   "ready": true,
    "title": {
     "en": "Research mode",
     "hi": "रिसर्च मोड",
@@ -73,7 +73,8 @@
     "en": "Maps, open Indian datasets, model runs and biodiversity indices.",
     "hi": "नक्शे, खुले भारतीय डेटासेट, मॉडल रन और जैव विविधता सूचकांक।",
     "bn": "মানচিত্র, খোলা ভারতীয় ডেটাসেট, মডেল রান আর জীববৈচিত্র্য সূচক।"
-   }
+   },
+   "screen": true
   }
  ],
  "ui": {

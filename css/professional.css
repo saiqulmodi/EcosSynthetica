@@ -57,3 +57,15 @@
 .aqi-good { background: #55a84f; } .aqi-satisfactory { background: #a3c853; } .aqi-moderate { background: #fff833; }
 .aqi-poor { background: #f29c33; } .aqi-veryPoor { background: #e93f33; color: #fff; } .aqi-severe { background: #af2d24; color: #fff; }
 #pro .sheet-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.rs-tabs { margin-bottom: 12px; }
+.rs-field { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0 14px 10px 0; font-size: 14px; }
+.rs-field select, #pro .field { background: var(--pbg); color: var(--pfg); border: 1px solid var(--pline); border-radius: 10px; padding: 7px 10px; font: inherit; max-width: 100%; }
+.rs-field input[type="range"] { accent-color: var(--paccent); min-width: 160px; }
+.rs-plots { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.rs-count { width: 90px; }
+.rs-map { height: 380px; border-radius: 12px; overflow: hidden; border: 1px solid var(--pline); margin-bottom: 10px; background: var(--pbg); }
+.rs-offline { padding: 16px; color: var(--pmut); }
+#pro .exp-checkline { background: var(--pbg); border-left: 3px solid var(--green); padding: 10px 12px; border-radius: 8px; }
+#pro .mono { font-family: var(--mono); }
+#pro .ok { color: var(--green); }
+.row-in { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }

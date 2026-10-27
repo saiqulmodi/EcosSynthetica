@@ -33,7 +33,7 @@ scientistAddOns.push((game, ui, profile) => import('./tiers/scientist/AddOns.js'
 const tiers = {
   explorer: { available: true, start: (p) => import('./tiers/explorer/ExplorerGame.js').then((m) => m.start(p)) },
   scientist: { available: true, start: startScientist },
-  professional: { available: true, total: 9, start: (p) => import('./tiers/professional/ProfessionalGame.js').then((m) => m.start(p)) },
+  professional: { available: true, total: 11, start: (p) => import('./tiers/professional/ProfessionalGame.js').then((m) => m.start(p)) },
 };
 
 const shell = new Shell(tiers);

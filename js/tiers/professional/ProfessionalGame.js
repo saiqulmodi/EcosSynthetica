@@ -8,13 +8,14 @@ import { progress, saveProgress, starsFor } from '../../app/Profile.js';
 import { Mentor } from '../../ai/Mentor.js';
 import { CASES } from './cases.js';
 import './tracks/cases.js';
+import { RESEARCH } from './research/Research.js';
 
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const L = (obj) => (obj && typeof obj === 'object' ? obj[getLang()] || obj.en : obj) || '';
 const get = (u) => fetch(u).then((r) => (r.ok ? r.json() : null)).catch(() => null);
 
 // Extra tracks register here (Research mode adds its own screen instead of cases).
-export const TRACK_SCREENS = {};
+export const TRACK_SCREENS = { research: RESEARCH };
 
 export async function start(profile) {
   const css = document.createElement('link');
