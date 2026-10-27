@@ -29,7 +29,7 @@ async function startScientist(profile) {
 export const scientistAddOns = [];
 
 const tiers = {
-  explorer: { available: false, start: () => {} },
+  explorer: { available: true, start: (p) => import('./tiers/explorer/ExplorerGame.js').then((m) => m.start(p)) },
   scientist: { available: true, start: startScientist },
   professional: { available: false, start: () => {} },
 };
