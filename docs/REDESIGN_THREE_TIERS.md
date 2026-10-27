@@ -33,6 +33,32 @@ The design starts from what the game already is. It does not start from a blank 
 
 ---
 
+## Size limit: the whole game fits within 20 MB
+
+All three tiers together, with every language, question, voice file and dataset, ship in **20 MB or less**. That is the full offline install: the website files the service worker caches, and the zip. Today the game is about 7 MB, and `js/quizbank.js` alone is 6 MB because it is pretty-printed JSON.
+
+| Part | Budget | How it stays inside |
+|---|---|---|
+| Three.js engine (kept locally for offline play) | 1.3 MB | One minified module; no extra Three.js add-ons |
+| Game code, all tiers | 1.5 MB | Plain ES modules, minified at release |
+| Content text packs (en/hi/bn) | 2.5 MB | Compact JSON with short keys and no indentation; each text is stored once and reused by key |
+| Question banks (Class 1-12 + tracks) | 5.0 MB | Compact JSON (today's 6 MB bank becomes about 3.5 MB); split into per-class packs |
+| Narration audio | 6.0 MB | Opus, mono, 16 kbps (about 2 KB per second) gives about 50 minutes. Recorded audio is used where a device voice is missing (Bengali first); en/hi use the device voice when present |
+| Fonts (Devanagari + Bengali) | 0.6 MB | Noto woff2, cut down to the characters actually used |
+| Icons and pictures | 0.5 MB | SVG only; 3D bodies stay procedural (low-poly, built in code), so there are no 3D model files or textures |
+| Professional/Research datasets | 1.5 MB | Pre-aggregated CSV (district or state level, not raw records) |
+| Reserve | 1.1 MB | For fixes and new content |
+| **Total** | **20.0 MB** | |
+
+**Rules that keep it there**
+- `tools/check_size.py` adds up everything that ships and fails the build if the total is over 20 MB or any row is over its budget. Every phase runs it before commit.
+- Map tiles in Research mode are online-only and are never stored, so they do not count towards the 20 MB.
+- The live AI (optional) runs on a server, so it adds nothing on the device.
+- The Android app is the same 20 MB of files plus the Capacitor wrapper (about 4 MB).
+- New content must fit the budget. If something must grow, another row shrinks first, or that content becomes an optional download pack outside the core 20 MB.
+
+---
+
 ## 1. Software architecture
 
 ```
@@ -410,6 +436,7 @@ Work goes one phase at a time. Each phase ends with: what changed, how to verify
 **Out of scope for the MVP:** live LLM, school server, GIS, Engineering/Agriculture/Forestry/Research tracks.
 
 **MVP quality bar**
+- `check_size.py` passes: everything that ships is 20 MB or less.
 - `validate_content.py` passes: every key exists in en/hi/bn, every concept has a source.
 - Every science claim is traced to NCERT, WHO, ICMR, CPCB, IMD, BIS, FSI or a peer-reviewed source.
 - Old v1 saves still load.
@@ -430,7 +457,7 @@ Work goes one phase at a time. Each phase ends with: what changed, how to verify
 
 | Concern | Plan |
 |---|---|
-| Download size | Per-tier dynamic imports; question packs split by class/track (about 50-300 KB each); service worker caches only what was opened |
+| Download size | Hard cap of 20 MB for everything that ships (see "Size limit"); per-tier dynamic imports; question packs split by class/track (about 50-300 KB each); service worker caches only what was opened |
 | Many users | Static hosting needs no server, so the number of students does not matter. Pages can later move to Cloudflare Pages/Netlify with the same files |
 | Content growth | Authoring SQLite -> JSON packs with versions and hashes in `content/manifest.json`; the service worker updates changed packs only |
 | More languages | `content/lang/registry.json` + one folder of packs per language; the UI falls back to English per key (as today). Adding Tamil, Telugu, Marathi, Odia or Urdu needs no code change. Urdu needs the RTL flag in the registry |
