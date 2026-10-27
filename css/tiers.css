@@ -60,3 +60,5 @@
 .tc-qr { width: min(260px, 100%); background: #fff; padding: 8px; border-radius: 10px; }
 .tc-qr svg { display: block; width: 100%; height: auto; }
 .paths-foot a.btn { text-decoration: none; color: inherit; display: inline-flex; align-items: center; }
+.sv-check { flex-direction: row !important; align-items: flex-start; gap: 10px !important; font: 15px var(--body) !important; color: var(--fg) !important; }
+.sv-check input { width: 20px; height: 20px; margin-top: 2px; flex: none; }

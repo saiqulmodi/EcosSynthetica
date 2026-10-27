@@ -2,6 +2,7 @@
 import { Shell } from './app/Shell.js';
 import { saveKeyFor } from './app/Profile.js';
 import { addShareButtons } from './teacher/share.js';
+import { addServerButton, llm } from './app/Connect.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -38,7 +39,8 @@ const tiers = {
 
 const shell = new Shell(tiers);
 addShareButtons(shell);
-window.ecosApp = { shell, tiers, scientistAddOns };
+addServerButton(shell);
+window.ecosApp = { shell, tiers, scientistAddOns, llm };
 shell.show();
 
 // Offline play: cache what has been opened (only on http/https pages).
