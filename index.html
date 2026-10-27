@@ -759,9 +759,9 @@ blockquote { margin: 0 0 12px; padding: 8px 12px; border-left: 3px solid var(--g
       qaList.innerHTML = data.stages.flatMap(s => 
         s.questions.map(q => 
           '<div class="qa-card">' +
-            '<div class="qa-pillar">' + s.title + ' • ' + q.pillar + '</div>' +
+            '<div class="qa-pillar">' + s.title + ' â€¢ ' + q.pillar + '</div>' +
             '<div class="qa-q">' + q.prompt + '</div>' +
-            q.options.map((opt, i) => '<div class="qa-opt ' + (i === q.correctIndex ? 'correct' : '') + '">' + (i === q.correctIndex ? '? ' : '• ') + opt + '</div>').join('') +
+            q.options.map((opt, i) => '<div class="qa-opt ' + (i === q.correctIndex ? 'correct' : '') + '">' + (i === q.correctIndex ? '? ' : 'â€¢ ') + opt + '</div>').join('') +
             '<div style="font-size:12px; color:#cbd5e1; margin-top:8px;"><em>' + q.explanation + '</em></div>' +
           '</div>'
         )

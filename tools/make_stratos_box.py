@@ -42,7 +42,7 @@ html = open(os.path.join(PROJECT, "index.html"), encoding="utf-8").read()
 
 html = html.replace(
     '"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"',
-    '"cdn/three.module.js"'
+    '"./cdn/three.module.js"'     # an import map needs ./ (a bare cdn/ path is refused)
 )
 
 html = re.sub(r'<link rel="preconnect" href="https://fonts\.[^"]*"[^>]*>\n?', '', html)
