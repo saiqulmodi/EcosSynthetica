@@ -7,6 +7,7 @@ import { LANGS, getLang, setLang } from '../../i18n.js';
 import { progress, saveProgress, starsFor } from '../../app/Profile.js';
 import { Mentor } from '../../ai/Mentor.js';
 import { CASES } from './cases.js';
+import './tracks/cases.js';
 
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const L = (obj) => (obj && typeof obj === 'object' ? obj[getLang()] || obj.en : obj) || '';
