@@ -6,9 +6,17 @@
   explorer/class-1..10.json  nature questions for Class 1-10 from the
                              School MCQ Bank, tagged with an Explorer module
 
+  + tools/authored/*.py      questions written for chapters the banks did not
+                             cover (Class 12 ecology, Explorer mission topics,
+                             missing NCERT Biology, Chemistry and Physics
+                             chapters); merged into the packs above
+
 Run:  python tools/build_packs.py
 """
+import hashlib
+import importlib.util
 import json
+import random
 import re
 import sqlite3
 import sys
@@ -103,8 +111,58 @@ def explorer_packs():
     return total
 
 
+def authored_items():
+    """(kind, key, item): kind 'explorer' (key = class) or 'scientist' (key = form)."""
+    out, problems = [], []
+    for f in sorted((ROOT / "tools" / "authored").glob("*.py")):
+        spec = importlib.util.spec_from_file_location(f.stem, f)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        n = 0
+        for topic, cls, where, items in mod.PACKS:
+            for q, right, wrong, why in items:
+                n += 1
+                if len(wrong) != 3 or len(set(wrong)) != 3 or right in wrong or not q.strip() or not right.strip():
+                    problems.append(f"{f.name} {topic}: {q[:60]}")
+                    continue
+                # Same answer position every build, but spread across A-D.
+                rnd = random.Random(int(hashlib.md5(q.encode("utf-8")).hexdigest()[:8], 16))
+                opts = [right, *wrong]
+                rnd.shuffle(opts)
+                item = {"id": f"au-{f.stem}-{n}", "cls": cls, "topic": topic, "q": q, "opts": opts, "ans": opts.index(right), "why": why}
+                if isinstance(where, str):
+                    out.append(("explorer", cls, {**item, "subject": "Biology" if cls >= 6 else "EVS", "m": where}))
+                else:
+                    subject = "Chemistry" if f.stem.startswith("chem") else "Physics" if f.stem.startswith("phys") else "Biology"
+                    out.append(("scientist", where, {**item, "subject": subject}))
+    if problems:
+        for p in problems:
+            print("  PROBLEM", p)
+        raise SystemExit("fix the authored questions above")
+    return out
+
+
+def merge_authored():
+    """Adds the authored questions to the packs, replacing any earlier copy (ids start with 'au-')."""
+    items = authored_items()
+    files = {}
+    for kind, key, item in items:
+        path = OUT / ("explorer" if kind == "explorer" else "scientist") / (f"class-{key}.json" if kind == "explorer" else f"form-{key}.json")
+        files.setdefault(path, []).append(item)
+    total = 0
+    for path, extra in sorted(files.items()):
+        base = [x for x in json.loads(path.read_text(encoding="utf-8")) if not str(x.get("id", "")).startswith("au-")]
+        total += dump(path, base + extra)
+        print(f"  {path.relative_to(ROOT).as_posix()}: +{len(extra)} authored ({len(base) + len(extra)} in all)")
+    print(f"  authored questions: {len(items)}")
+    return total
+
+
 def main():
-    total = scientist_from_quizbank() + explorer_packs()
+    scientist_from_quizbank()
+    explorer_packs()
+    merge_authored()
+    total = sum(f.stat().st_size for f in OUT.rglob("*.json"))
     print(f"question packs: {total / 1024 / 1024:.2f} MB")
 
 

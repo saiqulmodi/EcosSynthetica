@@ -41,8 +41,8 @@ All three tiers together, with every language, question, voice file and dataset,
 |---|---|---|
 | Three.js engine (kept locally for offline play) | 1.3 MB | One minified module; no extra Three.js add-ons |
 | Game code, all tiers | 1.5 MB | Plain ES modules, minified at release |
-| Content text packs (en/hi/bn) | 2.5 MB | Compact JSON with short keys and no indentation; each text is stored once and reused by key |
-| Question banks (Class 1-12 + tracks) | 5.0 MB | Compact JSON (today's 6 MB bank becomes about 3.5 MB); split into per-class packs |
+| Content text packs (en/hi/bn) | 2.0 MB | Compact JSON with short keys and no indentation; each text is stored once and reused by key |
+| Question banks (Class 1-12 + tracks) | 5.5 MB | Compact JSON (today's 6 MB bank becomes about 3.5 MB); split into per-class packs |
 | Narration audio | 6.0 MB | Opus, mono, 16 kbps (about 2 KB per second) gives about 50 minutes. Recorded audio is used where a device voice is missing (Bengali first); en/hi use the device voice when present |
 | Fonts (Devanagari + Bengali) | 0.6 MB | Noto woff2, cut down to the characters actually used |
 | Icons and pictures | 0.5 MB | SVG only; 3D bodies stay procedural (low-poly, built in code), so there are no 3D model files or textures |

@@ -1,0 +1,248 @@
+"""Biology chapters (NCERT rationalised 2023-24) that had no questions.
+Each item: (question, right answer, [three wrong answers], why).
+PACKS rows: (topic, class, scientist form pack, items)."""
+
+ECOSYSTEM_MORE = [
+    ("The amount of living material present in each trophic level at a given time is called:", "standing crop", ["productivity", "humus", "detritus"], "It is measured as biomass or number per unit area."),
+    ("In the grazing food chain, which is the first trophic level?", "producers", ["herbivores", "carnivores", "decomposers"], "Plants form the first trophic level."),
+    ("Saprotrophs such as fungi and bacteria are also called:", "decomposers", ["producers", "primary consumers", "top carnivores"], "They secrete digestive enzymes that break down dead matter."),
+    ("Primary productivity depends mainly on:", "the plant species, environmental factors, nutrient availability and photosynthetic capacity", ["the number of tigers", "only the moon's phase", "the colour of the soil"], "Hence it varies between ecosystems."),
+    ("A pond is an example of a:", "shallow, self-sustainable aquatic ecosystem", ["terrestrial ecosystem", "man-made desert", "single population"], "It shows all the basic components of an ecosystem."),
+    ("Herbivores are also called:", "primary consumers", ["secondary consumers", "producers", "tertiary consumers"], "They feed directly on producers."),
+]
+
+BIO_CLASSIFICATION = [
+    ("The five-kingdom classification was proposed by:", "R.H. Whittaker (1969)", ["Linnaeus", "Darwin", "Aristotle"], "Monera, Protista, Fungi, Plantae, Animalia."),
+    ("Kingdom Monera includes:", "bacteria", ["fungi", "algae only", "protozoans"], "All prokaryotic organisms."),
+    ("Bacteria that make their own food from inorganic substances by oxidising them are:", "chemosynthetic autotrophs", ["photosynthetic heterotrophs", "saprophytes", "parasites"], "They help recycle nitrogen, phosphorus, iron and sulphur."),
+    ("Archaebacteria living in marshy areas and producing methane from cattle dung are:", "methanogens", ["halophiles", "thermoacidophiles", "cyanobacteria"], "They also live in the guts of ruminants."),
+    ("Cyanobacteria such as Nostoc and Anabaena can:", "fix atmospheric nitrogen in heterocysts", ["digest plastic", "cause malaria", "produce penicillin"], "They are photosynthetic autotrophs."),
+    ("Organisms without a cell wall that are the smallest living cells known are:", "mycoplasma", ["viruses", "yeasts", "diatoms"], "They can survive without oxygen."),
+    ("Diatoms, whose cell walls form 'diatomaceous earth', belong to:", "chrysophytes (Protista)", ["Monera", "Fungi", "Plantae"], "Their walls contain silica."),
+    ("Red tides in the sea are caused by rapid multiplication of:", "dinoflagellates such as Gonyaulax", ["diatoms", "euglenoids", "slime moulds"], "Their toxins may kill fish."),
+    ("Plasmodium, which causes malaria, is a:", "sporozoan protozoan", ["bacterium", "fungus", "virus"], "Protozoans are heterotrophic protists."),
+    ("The cell wall of fungi is made of:", "chitin and polysaccharides", ["cellulose only", "peptidoglycan", "silica"], "Plants have cellulose walls."),
+    ("Penicillium, the source of penicillin, belongs to:", "Ascomycetes (sac fungi)", ["Phycomycetes", "Basidiomycetes", "Deuteromycetes"], "Neurospora, used in genetics, is also an ascomycete."),
+    ("Mushrooms and bracket fungi belong to:", "Basidiomycetes", ["Ascomycetes", "Phycomycetes", "Deuteromycetes"], "Their spores are basidiospores."),
+    ("Viruses are inert outside a living cell and are made of:", "a protein coat and genetic material (DNA or RNA)", ["only lipids", "cellulose", "chitin"], "They are obligate parasites."),
+    ("Viroids, which cause potato spindle tuber disease, are:", "free RNA without a protein coat", ["bacteria", "fungi", "proteins without nucleic acid"], "Discovered by T.O. Diener in 1971."),
+    ("A symbiotic association of algae and fungi is called:", "lichen", ["mycorrhiza", "root nodule", "plankton"], "Lichens do not grow in polluted areas: they are pollution indicators."),
+]
+
+BIOMOLECULES = [
+    ("Amino acids are linked together in a protein by:", "peptide bonds", ["glycosidic bonds", "phosphodiester bonds", "ester bonds only"], "A peptide bond forms between the carboxyl and amino groups."),
+    ("Monosaccharides in a polysaccharide are linked by:", "glycosidic bonds", ["peptide bonds", "hydrogen bonds only", "disulphide bonds"], "Starch, cellulose and glycogen are polysaccharides."),
+    ("Nucleotides in a nucleic acid are linked by:", "phosphodiester bonds", ["peptide bonds", "glycosidic bonds", "ionic bonds"], "A phosphate links the sugars of adjacent nucleotides."),
+    ("The most abundant protein in the animal world is:", "collagen", ["RuBisCO", "insulin", "haemoglobin"], "RuBisCO is the most abundant protein in the whole biosphere."),
+    ("The most abundant protein in the whole biosphere is:", "RuBisCO", ["collagen", "keratin", "albumin"], "It fixes CO2 in photosynthesis."),
+    ("The storage polysaccharide in animals is:", "glycogen", ["starch", "cellulose", "inulin"], "Plants store starch."),
+    ("Cellulose does not give a blue colour with iodine because it:", "has no helical chains to hold iodine", ["is a protein", "is a lipid", "dissolves in iodine"], "Starch forms helices that hold I2 and turn blue."),
+    ("The sequence of amino acids in a protein is its:", "primary structure", ["secondary structure", "tertiary structure", "quaternary structure"], "Haemoglobin, with four subunits, shows quaternary structure."),
+    ("Enzymes are mostly:", "proteins", ["lipids", "carbohydrates", "vitamins"], "Some RNAs (ribozymes) also act as enzymes."),
+    ("Enzymes speed up reactions by:", "lowering the activation energy", ["raising the temperature", "increasing the activation energy", "changing the products"], "They form an enzyme-substrate complex."),
+    ("Malonate inhibits succinic dehydrogenase because it resembles succinate. This is:", "competitive inhibition", ["non-competitive inhibition", "denaturation", "activation"], "The inhibitor competes for the active site."),
+    ("Enzymes that join two molecules together are:", "ligases", ["hydrolases", "oxidoreductases", "lyases"], "There are six classes of enzymes."),
+    ("A non-protein organic cofactor loosely bound to an enzyme is a:", "coenzyme", ["prosthetic group", "apoenzyme", "substrate"], "NAD and NADP contain the vitamin niacin."),
+    ("Lecithin is an example of a:", "phospholipid", ["polysaccharide", "protein", "nucleotide"], "Phospholipids are found in cell membranes."),
+    ("Adenine and guanine are:", "purines", ["pyrimidines", "amino acids", "sugars"], "Cytosine, thymine and uracil are pyrimidines."),
+]
+
+BREATHING = [
+    ("Exchange of O2 and CO2 in human lungs takes place in the:", "alveoli", ["trachea", "bronchi", "larynx"], "Alveoli are thin-walled and richly supplied with blood."),
+    ("Inspiration happens when the diaphragm:", "contracts and the thoracic volume increases", ["relaxes and the thoracic volume decreases", "stays still", "moves upward"], "Pressure in the lungs falls below atmospheric pressure."),
+    ("The volume of air inspired or expired during a normal breath is the:", "tidal volume (about 500 mL)", ["vital capacity", "residual volume", "total lung capacity"], "A healthy adult breathes 12-16 times a minute."),
+    ("The volume of air remaining in the lungs even after a forcible expiration is the:", "residual volume", ["tidal volume", "vital capacity", "inspiratory reserve volume"], "It is about 1,100-1,200 mL."),
+    ("About what percentage of oxygen is carried by haemoglobin in the blood?", "97 per cent", ["3 per cent", "50 per cent", "20 per cent"], "The rest is dissolved in plasma."),
+    ("About 20-25 per cent of CO2 is carried in the blood as:", "carbaminohaemoglobin", ["oxyhaemoglobin", "carbonic acid only", "bicarbonate in RBC only"], "About 70 per cent is carried as bicarbonate."),
+    ("The enzyme that rapidly converts CO2 and water to carbonic acid in RBCs is:", "carbonic anhydrase", ["pepsin", "amylase", "lipase"], "It is present in very high concentration in RBCs."),
+    ("The respiratory rhythm centre is located in the:", "medulla oblongata", ["cerebellum", "spinal cord", "hypothalamus"], "The pneumotaxic centre in the pons moderates it."),
+    ("The sigmoid curve obtained when percentage saturation of haemoglobin is plotted against pO2 is the:", "oxygen dissociation curve", ["growth curve", "dose-response curve", "absorption spectrum"], "It shows binding and release of O2."),
+    ("Emphysema is a disorder in which:", "alveolar walls are damaged, reducing the respiratory surface", ["the windpipe closes forever", "the heart stops", "the stomach fills with air"], "Cigarette smoking is a major cause."),
+    ("Long exposure to dust in stone-grinding industries can cause:", "occupational respiratory disorders like fibrosis of the lungs", ["diabetes", "night blindness", "anaemia only"], "Workers should wear protective masks."),
+    ("In asthma there is:", "difficulty in breathing due to inflammation of bronchi and bronchioles", ["excess red blood cells", "too much oxygen", "a broken rib"], "It causes wheezing."),
+    ("Earthworms exchange gases through their:", "moist cuticle (skin)", ["gills", "lungs", "tracheal tubes"], "Insects use tracheal tubes; fishes use gills."),
+    ("The partial pressure of oxygen in alveoli is about:", "104 mm Hg", ["40 mm Hg", "159 mm Hg", "0 mm Hg"], "In deoxygenated blood it is about 40 mm Hg."),
+    ("The cartilaginous flap that prevents food from entering the larynx is the:", "epiglottis", ["glottis", "pharynx", "uvula"], "It covers the glottis during swallowing."),
+]
+
+BODY_FLUIDS = [
+    ("The fluid part of blood is:", "plasma", ["serum only", "lymph", "haemoglobin"], "Plasma is about 55 per cent of blood."),
+    ("Red blood cells in an adult are formed in the:", "red bone marrow", ["liver", "spleen", "kidney"], "RBCs live about 120 days."),
+    ("A person with blood group O is called a 'universal donor' because:", "the RBCs carry no A or B antigens", ["the plasma has no antibodies", "the blood has no RBCs", "it can receive any blood"], "AB is the universal recipient."),
+    ("Erythroblastosis foetalis can happen when:", "an Rh-negative mother carries an Rh-positive foetus", ["both parents are Rh negative", "the mother is blood group O", "the foetus is Rh negative"], "Anti-Rh antibodies from the mother destroy foetal RBCs."),
+    ("Blood clotting requires the enzyme thrombokinase to convert:", "prothrombin into thrombin", ["fibrin into fibrinogen", "haemoglobin into bilirubin", "plasma into serum"], "Thrombin converts fibrinogen to fibrin; calcium ions are needed."),
+    ("The human heart has:", "two atria and two ventricles", ["one atrium and one ventricle", "two atria and one ventricle", "three chambers"], "Birds and mammals have four-chambered hearts."),
+    ("The pacemaker of the heart is the:", "sino-atrial node (SAN)", ["atrio-ventricular node", "bundle of His", "Purkinje fibres"], "It initiates 70-75 beats a minute."),
+    ("The 'lub' heart sound is produced by the closure of the:", "tricuspid and bicuspid (atrio-ventricular) valves", ["semilunar valves", "aortic arch", "pulmonary vein"], "The 'dub' is the closure of the semilunar valves."),
+    ("Cardiac output (stroke volume × heart rate) of a healthy person is about:", "5,000 mL per minute", ["50 mL per minute", "500 mL per hour", "50 litres per minute"], "Stroke volume is about 70 mL."),
+    ("In an ECG, the QRS complex represents:", "depolarisation of the ventricles", ["repolarisation of the atria", "relaxation of the heart", "closure of valves"], "The P-wave is atrial depolarisation; the T-wave is ventricular repolarisation."),
+    ("Double circulation means:", "blood passes through the heart twice in one complete cycle", ["blood has two colours", "there are two hearts", "blood flows backwards"], "Pulmonary and systemic circulation."),
+    ("Lymph differs from blood mainly because it:", "lacks red blood cells and has less protein", ["has more red blood cells", "has no water", "is red in colour"], "It carries fats absorbed from the intestine."),
+    ("Atherosclerosis or coronary artery disease is caused by:", "deposits of calcium, fat and cholesterol narrowing the arteries", ["too many white blood cells", "low sugar", "excess iron in bones"], "It reduces blood supply to the heart muscle."),
+    ("Blood pressure of 120/80 mm Hg is considered normal. A reading of 140/90 or higher indicates:", "hypertension", ["hypotension", "angina", "heart failure only"], "High blood pressure damages vital organs."),
+    ("Neutrophils and monocytes are:", "phagocytic white blood cells", ["red blood cells", "platelets", "plasma proteins"], "They destroy foreign organisms."),
+]
+
+EXCRETION = [
+    ("The structural and functional unit of the kidney is the:", "nephron", ["neuron", "alveolus", "villus"], "Each kidney has about a million nephrons."),
+    ("Humans excrete nitrogenous waste mainly as:", "urea (ureotelic)", ["ammonia (ammonotelic)", "uric acid (uricotelic)", "creatine only"], "Fishes are ammonotelic; birds and reptiles are uricotelic."),
+    ("Urea is produced in the:", "liver", ["kidney", "bladder", "heart"], "Ammonia is converted to urea in the liver."),
+    ("Ultrafiltration of blood occurs in the:", "glomerulus", ["loop of Henle", "collecting duct", "ureter"], "About 180 litres of filtrate are formed per day."),
+    ("The glomerular filtration rate of a healthy person is about:", "125 mL per minute", ["1.25 mL per minute", "1,250 mL per minute", "12.5 litres per minute"], "That is about 180 litres per day."),
+    ("Nearly 99 per cent of the filtrate is reabsorbed by the:", "renal tubules", ["glomerulus", "urinary bladder", "urethra"], "Only about 1.5 litres of urine is passed per day."),
+    ("The loop of Henle and vasa recta help produce concentrated urine by the:", "counter-current mechanism", ["osmoregulation of the heart", "ultrafiltration", "micturition reflex"], "They maintain a concentration gradient in the medulla."),
+    ("ADH (vasopressin) helps the body:", "reabsorb more water from the tubules", ["excrete more water", "make urea", "digest proteins"], "It prevents diuresis."),
+    ("The process of releasing urine is called:", "micturition", ["ultrafiltration", "reabsorption", "secretion"], "It is a reflex controlled by the nervous system."),
+    ("Accumulation of urea in the blood due to kidney failure is called:", "uremia", ["glycosuria", "ketonuria", "anaemia"], "It is treated by haemodialysis."),
+    ("Glucose in urine (glycosuria) is a sign of:", "diabetes mellitus", ["uremia", "kidney stones", "asthma"], "Normally glucose is fully reabsorbed."),
+    ("Besides the kidneys, which organs also help in excretion?", "lungs, liver and skin", ["heart and brain", "eyes and ears", "stomach and pancreas"], "Lungs remove CO2; sweat removes NaCl and some urea."),
+    ("The juxtaglomerular apparatus responds to a fall in GFR by releasing:", "renin", ["insulin", "ADH", "glucagon"], "This activates the renin-angiotensin mechanism."),
+    ("Atrial natriuretic factor (ANF):", "causes vasodilation and lowers blood pressure", ["raises blood pressure", "increases water reabsorption", "makes urea"], "It checks the renin-angiotensin mechanism."),
+    ("Flame cells are excretory structures of:", "flatworms like Planaria", ["insects", "earthworms", "frogs"], "Insects use Malpighian tubules; earthworms use nephridia."),
+]
+
+LOCOMOTION = [
+    ("The functional unit of a muscle fibre (myofibril) is the:", "sarcomere", ["neuron", "nephron", "alveolus"], "It lies between two Z-lines."),
+    ("Muscle contraction is explained by the:", "sliding filament theory", ["lock and key theory", "germ theory", "cell theory"], "Thin actin filaments slide over thick myosin filaments."),
+    ("Calcium ions trigger muscle contraction by binding to:", "troponin, exposing binding sites on actin", ["myosin heads directly", "ATP", "glycogen"], "Myosin heads then form cross bridges."),
+    ("Muscle fatigue after repeated contraction is due to accumulation of:", "lactic acid", ["glucose", "oxygen", "urea"], "Anaerobic breakdown of glycogen produces lactic acid."),
+    ("Red muscle fibres are red because they have a lot of:", "myoglobin", ["haemoglobin in plasma", "lactic acid", "fat"], "They also have many mitochondria and are aerobic."),
+    ("The human skeleton has how many bones?", "206", ["106", "306", "260"], "80 in the axial and 126 in the appendicular skeleton."),
+    ("The number of vertebrae in the human vertebral column is:", "26", ["33", "12", "7"], "Including the fused sacrum and coccyx."),
+    ("The joint between the atlas and axis vertebrae is a:", "pivot joint", ["hinge joint", "ball and socket joint", "saddle joint"], "It allows turning of the head."),
+    ("The knee joint is a:", "hinge joint", ["ball and socket joint", "pivot joint", "gliding joint"], "It allows movement in one plane."),
+    ("The joint between the carpal and metacarpal of the thumb is a:", "saddle joint", ["hinge joint", "pivot joint", "fibrous joint"], "It allows the thumb to move in many directions."),
+    ("Joints between the flat bones of the skull are:", "fibrous joints that do not allow movement", ["synovial joints", "cartilaginous joints", "ball and socket joints"], "They are called sutures."),
+    ("Myasthenia gravis is an autoimmune disorder affecting the:", "neuromuscular junction, causing muscle weakness", ["bones, making them brittle", "heart valves", "kidneys"], "It can lead to paralysis of skeletal muscles."),
+    ("Osteoporosis is:", "decreased bone mass and higher chance of fractures", ["inflammation of joints due to uric acid", "a muscle disease", "a viral infection"], "Low oestrogen is a common factor."),
+    ("Gout is inflammation of joints due to accumulation of:", "uric acid crystals", ["calcium in muscles", "glucose", "lactic acid"], "Arthritis is general inflammation of joints."),
+    ("Amoeboid movement is seen in:", "macrophages and leucocytes in blood", ["sperm cells", "skeletal muscle", "cilia of the trachea"], "It is brought about by pseudopodia."),
+]
+
+NEURAL = [
+    ("The resting membrane potential of a neuron is maintained mainly by the:", "sodium-potassium pump", ["calcium pump", "chloride channels only", "myelin sheath"], "It moves 3 Na+ out and 2 K+ in."),
+    ("During depolarisation of a nerve fibre, the membrane becomes freely permeable to:", "Na+ ions", ["K+ ions only", "Cl- ions", "Ca2+ ions only"], "The inside becomes positive."),
+    ("Impulses travel fastest along:", "myelinated nerve fibres (saltatory conduction)", ["unmyelinated fibres", "dendrites only", "cell bodies"], "Impulses jump from node to node of Ranvier."),
+    ("Neurotransmitters are released at the:", "synapse", ["node of Ranvier", "nucleus", "myelin sheath"], "At a chemical synapse they cross the synaptic cleft."),
+    ("The part of the brain that maintains body posture and balance is the:", "cerebellum", ["cerebrum", "medulla", "hypothalamus"], "It is part of the hindbrain."),
+    ("Body temperature, hunger and thirst are controlled by the:", "hypothalamus", ["cerebellum", "pons", "spinal cord"], "It also controls the pituitary."),
+    ("Breathing, heart beat and gastric secretions are controlled by the:", "medulla oblongata", ["cerebrum", "cerebellum", "corpus callosum"], "It connects the brain to the spinal cord."),
+    ("The two cerebral hemispheres are connected by the:", "corpus callosum", ["pons", "medulla", "hypothalamus"], "A tract of nerve fibres."),
+    ("The limbic system, with the amygdala and hippocampus, is involved in:", "emotions, memory and motivation", ["hearing only", "digestion", "balance only"], "It works with the hypothalamus."),
+    ("A reflex action is:", "an involuntary response to a stimulus through the spinal cord", ["a voluntary action planned by the cerebrum", "a hormone action", "a learned skill only"], "Example: knee jerk reflex."),
+]
+
+SENSES = [
+    ("Light-sensitive cells for colour vision in the retina are the:", "cones", ["rods", "ganglion cells", "bipolar cells"], "Rods work in dim light and contain rhodopsin."),
+    ("The point where the optic nerve leaves the eye and there are no photoreceptors is the:", "blind spot", ["fovea", "lens", "iris"], "The fovea has only cones and the sharpest vision."),
+    ("The organ of hearing in the cochlea is the:", "organ of Corti", ["semicircular canals", "ear ossicles", "eustachian tube"], "Hair cells convert vibrations into nerve impulses."),
+    ("Balance and posture are maintained by the inner ear's:", "vestibular apparatus", ["cochlea only", "tympanic membrane", "pinna"], "Semicircular canals, utricle and saccule."),
+    ("The smallest bone in the human body is the:", "stapes", ["malleus", "incus", "femur"], "It is one of the three ear ossicles."),
+]
+
+CHEMICAL_COORD = [
+    ("The 'master gland' that controls many other endocrine glands is the:", "pituitary", ["thyroid", "adrenal", "pancreas"], "It is itself controlled by the hypothalamus."),
+    ("Over-secretion of growth hormone in children leads to:", "gigantism", ["dwarfism", "cretinism", "goitre"], "In adults it causes acromegaly."),
+    ("Iodine deficiency causes enlargement of the thyroid gland called:", "goitre", ["myxoedema", "diabetes", "Addison's disease"], "Thyroid hormones contain iodine."),
+    ("Hypothyroidism during pregnancy can cause stunted growth and mental retardation in the baby, called:", "cretinism", ["gigantism", "acromegaly", "exophthalmic goitre"], "Thyroid hormones control development."),
+    ("Calcium level in blood is raised by:", "parathyroid hormone (PTH)", ["thyrocalcitonin", "insulin", "melatonin"], "Thyrocalcitonin lowers blood calcium."),
+    ("Insulin is secreted by the:", "beta cells of the islets of Langerhans", ["alpha cells of the islets", "adrenal cortex", "thymus"], "Glucagon comes from alpha cells."),
+    ("Insulin lowers blood glucose by:", "increasing uptake of glucose by cells and its conversion to glycogen", ["breaking glycogen into glucose", "stopping digestion", "excreting glucose in urine"], "Lack of insulin causes diabetes mellitus."),
+    ("The 'fight or flight' hormones are:", "adrenaline and noradrenaline", ["insulin and glucagon", "oestrogen and progesterone", "thyroxine and calcitonin"], "They are secreted by the adrenal medulla."),
+    ("The hormone that regulates the 24-hour (diurnal) rhythm of the body is:", "melatonin from the pineal gland", ["thymosin", "cortisol", "aldosterone"], "It also influences sleep-wake cycles."),
+    ("Thymosins from the thymus help in:", "differentiation of T-lymphocytes", ["digestion of fats", "making bile", "growth of hair"], "The thymus shrinks in old age."),
+    ("Aldosterone, which acts on the kidney tubules to reabsorb Na+ and water, is a:", "mineralocorticoid from the adrenal cortex", ["glucocorticoid", "pancreatic hormone", "pituitary hormone"], "It helps maintain blood pressure."),
+    ("Testosterone is secreted by the:", "Leydig cells of the testis", ["Sertoli cells", "ovary", "pituitary"], "It controls male secondary sexual characters."),
+    ("Gastrin, secretin and cholecystokinin are hormones secreted by the:", "gastro-intestinal tract", ["brain", "kidney", "thyroid"], "They regulate digestion."),
+    ("Hormones that cannot enter the cell bind to receptors on the cell membrane and act through:", "second messengers such as cyclic AMP", ["the nucleus directly", "DNA replication", "the blood clot"], "Protein hormones like FSH work this way."),
+    ("Diabetes insipidus is caused by a deficiency of:", "ADH (vasopressin)", ["insulin", "thyroxine", "glucagon"], "The body loses a lot of water as dilute urine."),
+]
+
+INHERITANCE = [
+    ("Mendel conducted his hybridisation experiments on:", "garden pea (Pisum sativum)", ["Drosophila", "maize", "snapdragon"], "He studied seven pairs of contrasting traits."),
+    ("The phenotypic ratio of a monohybrid cross in the F2 generation is:", "3 : 1", ["1 : 2 : 1", "9 : 3 : 3 : 1", "1 : 1"], "The genotypic ratio is 1 : 2 : 1."),
+    ("The phenotypic ratio of a dihybrid cross in the F2 generation is:", "9 : 3 : 3 : 1", ["3 : 1", "1 : 2 : 1", "1 : 1 : 1 : 1"], "Explained by independent assortment."),
+    ("Crossing an F1 hybrid with its recessive parent is a:", "test cross", ["back cross with the dominant parent only", "self cross", "reciprocal cross"], "It reveals the genotype of the F1."),
+    ("Flower colour in snapdragon, where Rr gives pink flowers, shows:", "incomplete dominance", ["co-dominance", "complete dominance", "multiple allelism"], "The F2 ratio is 1 : 2 : 1 for both phenotype and genotype."),
+    ("The ABO blood groups in humans show:", "co-dominance and multiple alleles", ["incomplete dominance only", "complete linkage", "sex-linked inheritance"], "IA and IB are both expressed in AB."),
+    ("A single gene affecting many traits, as in phenylketonuria, is called:", "pleiotropy", ["polygenic inheritance", "epistasis", "linkage"], "One gene, many effects."),
+    ("Human skin colour is an example of:", "polygenic inheritance", ["pleiotropy", "incomplete dominance", "sex-linked inheritance"], "Controlled by three or more genes."),
+    ("The chromosomal theory of inheritance was proposed by:", "Sutton and Boveri", ["Mendel and Darwin", "Watson and Crick", "Morgan and Bateson"], "Chromosomes carry Mendel's factors."),
+    ("T.H. Morgan's work on Drosophila showed that genes on the same chromosome tend to stay together. This is:", "linkage", ["independent assortment", "mutation", "dominance"], "Recombination happens when genes are farther apart."),
+    ("In humans, the sex of the child is determined by:", "the sperm (X or Y)", ["the egg", "the mother's diet", "the season of birth"], "Males are XY and females XX."),
+    ("In birds, the female is:", "ZW (heterogametic)", ["ZZ", "XX", "XO"], "Male birds are ZZ."),
+    ("Haemophilia and colour blindness are:", "sex-linked recessive disorders", ["autosomal dominant disorders", "caused by an extra chromosome", "infectious diseases"], "They are more common in males."),
+    ("Sickle-cell anaemia is caused by substitution of glutamic acid by valine at the:", "sixth position of the beta-globin chain", ["first position of alpha chain", "last position of insulin", "tenth position of myoglobin"], "It is an autosomal recessive disorder."),
+    ("Down's syndrome is caused by:", "an extra copy of chromosome 21 (trisomy 21)", ["absence of an X chromosome", "an extra Y chromosome", "a mutation on chromosome 1 only"], "Turner's syndrome is 45, XO; Klinefelter's is 47, XXY."),
+]
+
+MOLECULAR_BASIS = [
+    ("The DNA double helix model was proposed by:", "Watson and Crick (1953)", ["Mendel", "Griffith", "Meselson and Stahl"], "Based on X-ray diffraction data from Wilkins and Franklin."),
+    ("Chargaff's rule states that in double-stranded DNA:", "A = T and G = C", ["A = G and T = C", "A + T = G + C always", "A = C and G = T"], "Purines equal pyrimidines."),
+    ("The distance between two base pairs in B-DNA is:", "0.34 nm", ["3.4 nm", "34 nm", "0.034 nm"], "One turn has 10 base pairs (3.4 nm)."),
+    ("Griffith's experiment with Streptococcus pneumoniae showed:", "transformation by a 'transforming principle'", ["DNA replication is semi-conservative", "RNA is the genetic material in all organisms", "the genetic code is triplet"], "Heat-killed S strain transformed live R strain."),
+    ("Hershey and Chase proved DNA is the genetic material using:", "bacteriophages labelled with radioactive phosphorus and sulphur", ["pea plants", "fruit flies", "frog eggs"], "Only 32P-labelled DNA entered the bacteria."),
+    ("Meselson and Stahl showed that DNA replication is:", "semi-conservative", ["conservative", "dispersive", "random"], "They used heavy nitrogen (15N) in E. coli."),
+    ("The main enzyme that adds nucleotides during DNA replication is:", "DNA-dependent DNA polymerase", ["RNA polymerase", "ligase", "helicase only"], "Ligase joins the Okazaki fragments."),
+    ("Okazaki fragments are formed on the:", "lagging strand", ["leading strand", "both strands equally", "RNA primer"], "Replication there is discontinuous."),
+    ("Transcription is the copying of genetic information from:", "DNA to RNA", ["RNA to protein", "protein to DNA", "RNA to DNA"], "Translation makes protein from mRNA."),
+    ("The start codon in translation is:", "AUG (methionine)", ["UAA", "UGA", "UAG"], "UAA, UAG and UGA are stop codons."),
+    ("The genetic code is said to be degenerate because:", "some amino acids are coded by more than one codon", ["it changes with age", "it is different in every species", "one codon codes for many amino acids"], "There are 61 codons for 20 amino acids."),
+    ("tRNA is called an 'adapter molecule' because it:", "reads the codon with its anticodon and carries the matching amino acid", ["cuts DNA", "makes ribosomes", "joins Okazaki fragments"], "It links the code to amino acids."),
+    ("In the lac operon, the inducer is:", "lactose (allolactose)", ["glucose", "the repressor", "RNA polymerase"], "It binds the repressor and frees the operator."),
+    ("The Human Genome Project found that the human genome has about:", "3 × 10^9 base pairs and about 20,000-25,000 genes", ["3,000 base pairs", "1 million genes", "only 100 genes"], "Less than 2 per cent of the genome codes for proteins."),
+    ("DNA fingerprinting is based on differences in:", "repetitive DNA such as VNTRs (satellite DNA)", ["the genetic code", "rRNA only", "amino acids"], "Developed by Alec Jeffreys; used in forensics."),
+]
+
+BIOTECH_PRINCIPLES = [
+    ("Enzymes that cut DNA at specific recognition sequences are:", "restriction endonucleases", ["DNA ligases", "polymerases", "lipases"], "EcoRI was one of the first, from E. coli RY13."),
+    ("Most restriction enzymes recognise palindromic sequences, which:", "read the same on both strands in the 5' to 3' direction", ["have no bases", "are made of protein", "occur only in RNA"], "Example: 5'-GAATTC-3' for EcoRI."),
+    ("DNA fragments are separated by size using:", "gel electrophoresis", ["centrifuge only", "chromatography paper", "a microscope"], "DNA moves towards the anode through agarose gel."),
+    ("Separated DNA in a gel is seen by staining with ethidium bromide and viewing under:", "UV light", ["infrared light", "X-rays", "a magnifying glass"], "DNA bands appear orange."),
+    ("The enzyme that joins DNA fragments is:", "DNA ligase", ["restriction enzyme", "lysozyme", "chitinase"], "It seals sticky ends."),
+    ("A vector in genetic engineering is:", "a DNA molecule, like a plasmid, that carries the foreign gene into the host", ["a virus that kills all bacteria", "a type of enzyme", "the host cell itself"], "pBR322 is a common E. coli vector."),
+    ("'Ori' in a cloning vector is the:", "origin of replication", ["origin of restriction", "operator region", "only antibiotic gene"], "It controls the copy number of the plasmid."),
+    ("Selectable markers like antibiotic-resistance genes help:", "identify transformants that took up the vector", ["cut DNA", "join DNA", "stop replication"], "Non-transformants die on antibiotic medium."),
+    ("Blue-white selection works because inserting DNA into the lacZ gene causes:", "insertional inactivation of beta-galactosidase", ["the bacteria to glow", "faster growth", "death of all bacteria"], "Recombinant colonies stay white."),
+    ("The Ti plasmid used as a vector for plant genetic engineering comes from:", "Agrobacterium tumefaciens", ["E. coli", "Bacillus thuringiensis", "Streptomyces"], "It is modified so it no longer causes tumours."),
+    ("PCR (polymerase chain reaction) uses a heat-stable DNA polymerase from:", "Thermus aquaticus (Taq polymerase)", ["E. coli", "yeast", "human cells"], "Steps: denaturation, annealing, extension."),
+    ("The three steps of each PCR cycle are:", "denaturation, primer annealing and extension", ["cutting, ligation and cloning", "transcription, translation and folding", "fixing, staining and viewing"], "Each cycle doubles the DNA."),
+    ("Large-scale culture of recombinant cells is done in:", "bioreactors", ["test tubes only", "open ponds", "petri dishes only"], "Stirred-tank bioreactors are common."),
+    ("Processes after biosynthesis, like separation and purification of the product, are called:", "downstream processing", ["upstream processing", "transformation", "ligation"], "The product is then formulated with preservatives."),
+    ("Cells are made 'competent' to take up DNA by treating them with:", "divalent cations like calcium", ["sugar", "ethanol only", "salt water from the sea"], "Then a heat shock is given."),
+]
+
+BIOTECH_APPLICATIONS = [
+    ("Bt cotton is protected from bollworms by a toxin gene from:", "Bacillus thuringiensis", ["Agrobacterium", "E. coli", "Rhizobium"], "The cry genes code for the toxin."),
+    ("The Bt toxin is activated in the insect gut because of the:", "alkaline pH that solubilises the crystals", ["acidic pH of the gut", "cold temperature", "presence of oxygen"], "It damages the midgut epithelial cells."),
+    ("Nematode resistance in tobacco against Meloidogyne incognita was achieved by:", "RNA interference (RNAi)", ["Bt toxin", "insulin gene", "Ti plasmid tumours"], "dsRNA silences the parasite's mRNA."),
+    ("Human insulin made by genetic engineering was produced in 1983 by Eli Lilly using:", "separate A and B chains made in E. coli and joined by disulphide bonds", ["pig pancreas", "cow pancreas", "yeast only"], "It avoids allergies from animal insulin."),
+    ("The first clinical gene therapy (1990) was given to a 4-year-old girl with:", "adenosine deaminase (ADA) deficiency", ["diabetes", "malaria", "polio"], "Functional ADA cDNA was introduced into her lymphocytes."),
+    ("Early detection of HIV in suspected AIDS patients is possible using:", "PCR", ["blood pressure checks", "X-rays", "urine sugar tests"], "It detects very low amounts of viral nucleic acid."),
+    ("ELISA, used to diagnose infections, works on the principle of:", "antigen-antibody interaction", ["DNA replication", "photosynthesis", "fermentation"], "Enzyme Linked Immuno-sorbent Assay."),
+    ("Animals whose DNA has been changed to carry an extra (foreign) gene are called:", "transgenic animals", ["clones", "hybrids only", "mutants by radiation"], "Over 95% of transgenic animals are mice."),
+    ("Rosie, the first transgenic cow (1997), produced milk enriched with:", "human alpha-lactalbumin", ["human insulin", "Bt toxin", "growth hormone for plants"], "Nutritionally more balanced for human babies."),
+    ("Golden rice is rich in:", "beta-carotene (provitamin A)", ["vitamin C", "iron only", "protein only"], "It aims to reduce vitamin A deficiency."),
+    ("The Indian body that examines the validity of GM research and the safety of introducing GM organisms is the:", "GEAC (Genetic Engineering Appraisal Committee)", ["ICMR", "ISRO", "FSSAI only"], "Set up by the Government of India."),
+    ("The use of bio-resources by companies without proper authorisation or compensation is called:", "biopiracy", ["biopatent", "bioremediation", "biofortification"], "Example: the dispute over Basmati rice patents."),
+    ("An advantage of GM crops is that they can:", "reduce reliance on chemical pesticides and lessen post-harvest losses", ["need more chemical pesticides", "always taste better", "grow without water"], "They may also be tolerant to drought or cold."),
+    ("Alpha-1-antitrypsin produced in transgenic animals is used to treat:", "emphysema", ["diabetes", "malaria", "cancer of the skin"], "Transgenic animals produce useful biological products."),
+    ("Transgenic mice are used to test the safety of:", "vaccines such as polio vaccine", ["cars", "fertilisers only", "cosmetics only"], "Before they are used on humans."),
+]
+
+PACKS = [
+    ("Ecosystem", 12, 1, ECOSYSTEM_MORE),
+    ("Biological Classification", 11, 0, BIO_CLASSIFICATION),
+    ("Biomolecules", 11, 0, BIOMOLECULES),
+    ("Breathing and Exchange of Gases", 11, 3, BREATHING),
+    ("Body Fluids and Circulation", 11, 3, BODY_FLUIDS),
+    ("Excretory Products and their Elimination", 11, 3, EXCRETION),
+    ("Locomotion and Movement", 11, 3, LOCOMOTION),
+    ("Neural Control and Coordination", 11, 3, NEURAL),
+    ("Sensory Reception: eye and ear (earlier NCERT)", 11, 3, SENSES),
+    ("Chemical Coordination and Integration", 11, 3, CHEMICAL_COORD),
+    ("Principles of Inheritance and Variation", 12, 1, INHERITANCE),
+    ("Molecular Basis of Inheritance", 12, 0, MOLECULAR_BASIS),
+    ("Biotechnology: Principles and Processes", 12, 0, BIOTECH_PRINCIPLES),
+    ("Biotechnology and its Applications", 12, 1, BIOTECH_APPLICATIONS),
+]

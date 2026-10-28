@@ -23,8 +23,8 @@ ROWS = [
     ("audio", 6.0, ["content/audio/*"]),
     ("fonts", 0.6, ["fonts/*"]),
     ("datasets", 1.5, ["content/datasets/*"]),
-    ("questions", 5.0, ["content/questions/*", "data/*", "questions.json"]),
-    ("text", 2.5, ["js/lang/*", "content/text/*", "js/tiers/*/text*.js", "js/ai/concepts*.js"]),
+    ("questions", 5.5, ["content/questions/*", "data/*", "questions.json"]),
+    ("text", 2.0, ["js/lang/*", "content/text/*", "js/tiers/*/text*.js", "js/ai/concepts*.js"]),
     ("images", 0.5, ["*.svg", "*.png", "*.jpg", "*.webp", "*.ico"]),
     ("code", 1.5, ["*"]),
 ]
