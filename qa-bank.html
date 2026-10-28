@@ -15,26 +15,24 @@
     }
     .header-bar {
       max-width: 900px;
-      margin: 0 auto 28px;
+      margin: 0 auto 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid #1e293b;
-      padding-bottom: 18px;
+      padding-bottom: 16px;
     }
     .header-title h1 { margin: 0; font-size: 24px; color: #f8fafc; }
-    .header-title p { margin: 6px 0 0; color: #94a3b8; font-size: 14px; }
+    .header-title p { margin: 4px 0 0; color: #94a3b8; font-size: 14px; }
     .btn-action {
-      padding: 10px 18px;
+      padding: 8px 16px;
       background: #0284c7;
       color: #ffffff;
       border-radius: 8px;
       text-decoration: none;
       font-weight: 600;
       font-size: 14px;
-      transition: background 0.2s;
     }
-    .btn-action:hover { background: #0369a1; }
     .qa-container {
       max-width: 900px;
       margin: 0 auto;
@@ -60,7 +58,7 @@
       font-size: 16px;
       font-weight: 600;
       color: #ffffff;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       line-height: 1.4;
     }
     .qa-options {
@@ -88,52 +86,109 @@
       color: #cbd5e1;
       border-left: 3px solid #38bdf8;
       padding-left: 12px;
-      margin-top: 12px;
-      line-height: 1.5;
+      margin-top: 10px;
+    }
+    .pagination-bar {
+      max-width: 900px;
+      margin: 24px auto 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid #1e293b;
+    }
+    .btn-nav {
+      padding: 10px 20px;
+      background: #1e293b;
+      color: #38bdf8;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-nav:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .page-info {
+      color: #94a3b8;
+      font-size: 14px;
+      font-weight: 500;
     }
   </style>
 </head>
 <body>
   <div class="header-bar">
     <div class="header-title">
-      <h1>?? Core Curriculum & Q/A Bank</h1>
-      <p>Study concepts and question structures before entering simulation stages.</p>
+      <h1>Core Curriculum & Q/A Bank</h1>
+      <p>Study concepts in batches before starting simulation stages.</p>
     </div>
-    <a href="index.html" class="btn-action">? Return to Simulation</a>
+    <a href="index.html" class="btn-action">Back to Simulation</a>
   </div>
 
   <div id="qaContainer" class="qa-container">
     <p style="color: #94a3b8;">Loading knowledge bank...</p>
   </div>
 
+  <div class="pagination-bar">
+    <button id="btnPrev" class="btn-nav" onclick="changeBatch(-1)" disabled>Previous Batch</button>
+    <span id="batchInfo" class="page-info">Batch 1</span>
+    <button id="btnNext" class="btn-nav" onclick="changeBatch(1)">Next Batch</button>
+  </div>
+
   <script>
+    let allQuestions = [];
+    let currentBatch = 0;
+    const batchSize = 3; // Shows 3 questions per batch
+
     async function loadQABank() {
-      const container = document.getElementById('qaContainer');
       try {
         const res = await fetch('./questions.json');
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
         const stages = data.stages || [];
-        container.innerHTML = stages.flatMap(s =>
-          s.questions.map(q => `
-            <div class="qa-card">
-              <div class="qa-stage">${s.title} • ${q.pillar}</div>
-              <div class="qa-question">${q.prompt}</div>
-              <div class="qa-options">
-                ${q.options.map((opt, i) => `
-                  <div class="qa-option ${i === q.correctIndex ? 'correct' : ''}">
-                    ${i === q.correctIndex ? '? ' : '• '} ${opt}
-                  </div>
-                `).join('')}
-              </div>
-              <div class="qa-explanation"><em>${q.explanation}</em></div>
-            </div>
-          `)
-        ).join('');
+        allQuestions = stages.flatMap(s => 
+          s.questions.map(q => ({ ...q, stageTitle: s.title }))
+        );
+        renderCurrentBatch();
       } catch (err) {
-        container.innerHTML = `<p style="color: #ef4444;">Failed to load questions: ${err.message}</p>`;
+        document.getElementById('qaContainer').innerHTML = '<p style="color:#ef4444;">Error: ' + err.message + '</p>';
       }
     }
+
+    function renderCurrentBatch() {
+      const container = document.getElementById('qaContainer');
+      const start = currentBatch * batchSize;
+      const end = start + batchSize;
+      const currentList = allQuestions.slice(start, end);
+      const totalBatches = Math.ceil(allQuestions.length / batchSize) || 1;
+
+      container.innerHTML = currentList.map(q => `
+        <div class="qa-card">
+          <div class="qa-stage">${q.stageTitle} • ${q.pillar}</div>
+          <div class="qa-question">${q.prompt}</div>
+          <div class="qa-options">
+            ${q.options.map((opt, i) => `
+              <div class="qa-option ${i === q.correctIndex ? 'correct' : ''}">
+                ${i === q.correctIndex ? '? ' : '• '} ${opt}
+              </div>
+            `).join('')}
+          </div>
+          <div class="qa-explanation"><em>${q.explanation}</em></div>
+        </div>
+      `).join('');
+
+      document.getElementById('batchInfo').innerText = `Batch ${currentBatch + 1} of ${totalBatches} (${allQuestions.length} Total Questions)`;
+      document.getElementById('btnPrev').disabled = currentBatch === 0;
+      document.getElementById('btnNext').disabled = end >= allQuestions.length;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function changeBatch(direction) {
+      currentBatch += direction;
+      renderCurrentBatch();
+    }
+
     loadQABank();
   </script>
 </body>
