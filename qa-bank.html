@@ -33,6 +33,29 @@
       font-weight: 600;
       font-size: 14px;
     }
+    .game-tabs {
+      max-width: 900px;
+      margin: 0 auto 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .game-tab {
+      flex: 1 1 200px;
+      padding: 10px 14px;
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .game-tab.active {
+      background: #0284c7;
+      border-color: #0284c7;
+      color: #ffffff;
+    }
     .qa-container {
       max-width: 900px;
       margin: 0 auto;
@@ -126,6 +149,12 @@
     <a href="index.html" class="btn-action">Back to Simulation</a>
   </div>
 
+  <div class="game-tabs">
+    <button class="game-tab" data-game="explorer" onclick="selectGame('explorer')">Eco Explorer · Class 1–10</button>
+    <button class="game-tab" data-game="scientist" onclick="selectGame('scientist')">Eco Scientist · Class 11–12</button>
+    <button class="game-tab" data-game="professional" onclick="selectGame('professional')">Eco Professional · NEET &amp; MBBS</button>
+  </div>
+
   <div id="qaContainer" class="qa-container">
     <p style="color: #94a3b8;">Loading knowledge bank...</p>
   </div>
@@ -206,15 +235,17 @@
       }
     ];
 
-    // The game's question bank: Explorer class packs and Scientist form packs
-    // (same files js/Quiz.js and the tiers load).
-    const bankFiles = [
-      ...Array.from({ length: 10 }, (_, i) => `content/questions/explorer/class-${i + 1}.json`),
-      ...Array.from({ length: 4 }, (_, i) => `content/questions/scientist/form-${i}.json`)
-    ];
+    // Three games, three question banks:
+    //   explorer     - Class 1-10: content/questions/explorer/class-1..10 (+ Class 1-10 items of the Scientist packs)
+    //   scientist    - Class 11-12: content/questions/scientist/form-0..3 (Class 11-12 items) + simulation stages
+    //   professional - NEET & MBBS: data/neet_academic_bank.json + data/chapters/* listed in data/manifest.json
+    const explorerFiles = Array.from({ length: 10 }, (_, i) => `content/questions/explorer/class-${i + 1}.json`);
+    const scientistFiles = Array.from({ length: 4 }, (_, i) => `content/questions/scientist/form-${i}.json`);
 
     let allQuestions = [];
     let currentBatch = 0;
+    let currentGame = 'explorer';
+    const gameCache = {};
     const batchSize = 3; // Shows 3 questions per batch
 
     const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -225,29 +256,66 @@
       return res.json();
     }
 
-    async function loadQABank() {
-      try {
+    // School bank items (explorer/scientist packs): {cls, subject, topic, q, opts, ans, why}
+    const fromSchool = (q) => ({
+      stageTitle: 'Class ' + q.cls + ' ' + (q.subject || ''),
+      pillar: q.topic || '',
+      prompt: q.q,
+      options: q.opts || [],
+      correctIndex: q.ans,
+      explanation: q.why || ''
+    });
+    // NEET items: {grade, subject, branch, chapter | chapter_key, question, options, answer, explanation}
+    const fromNeet = (q) => ({
+      stageTitle: 'NEET · Class ' + q.grade + ' ' + (q.subject || '') + (q.branch ? ' (' + q.branch + ')' : ''),
+      pillar: q.chapter || q.chapter_title || q.chapter_key || '',
+      prompt: q.question,
+      options: q.options || [],
+      correctIndex: q.answer,
+      explanation: q.explanation || ''
+    });
+    const loadAll = (files) => Promise.all(files.map(f => getJSON(f).catch(() => []))).then(p => p.flat());
+    const dedupe = (list) => { const seen = new Set(); return list.filter(q => !seen.has(q.prompt) && seen.add(q.prompt)); };
+
+    const gameLoaders = {
+      async explorer() {
+        const [own, sci] = await Promise.all([loadAll(explorerFiles), loadAll(scientistFiles)]);
+        return [...own, ...sci.filter(q => q.cls <= 10)].map(fromSchool);
+      },
+      async scientist() {
         const stageData = await getJSON('./questions.json').catch(() => ({ stages: [] }));
-        const gameQuestions = (stageData.stages || []).flatMap(s =>
+        const stageQuestions = (stageData.stages || []).flatMap(s =>
           (s.questions || []).map(q => ({ ...q, stageTitle: s.title }))
         );
+        const sci = await loadAll(scientistFiles);
+        return [...stageQuestions, ...extraQuestions, ...sci.filter(q => q.cls >= 11).map(fromSchool)];
+      },
+      async professional() {
+        const manifest = await getJSON('data/manifest.json').catch(() => []);
+        const list = await loadAll(['data/neet_academic_bank.json', ...manifest.map(m => m.file)]);
+        return list.map(fromNeet);
+      }
+    };
 
-        const packs = await Promise.all(bankFiles.map(f => getJSON(f).catch(() => [])));
-        const bankQuestions = packs.flat().map(q => ({
-          stageTitle: 'Class ' + q.cls + ' ' + (q.subject || ''),
-          pillar: q.topic || '',
-          prompt: q.q,
-          options: q.opts || [],
-          correctIndex: q.ans,
-          explanation: q.why || ''
-        }));
-
-        allQuestions = [...gameQuestions, ...extraQuestions, ...bankQuestions];
+    async function selectGame(game) {
+      currentGame = game;
+      currentBatch = 0;
+      document.querySelectorAll('.game-tab').forEach(b => b.classList.toggle('active', b.dataset.game === game));
+      document.getElementById('qaContainer').innerHTML = '<p style="color: #94a3b8;">Loading knowledge bank...</p>';
+      try {
+        if (!gameCache[game]) gameCache[game] = dedupe(await gameLoaders[game]());
+        if (currentGame !== game) return;
+        allQuestions = gameCache[game];
         if (!allQuestions.length) throw new Error('No questions found. Open the game through serve.py or GitHub Pages, not as a file.');
         renderCurrentBatch();
       } catch (err) {
         document.getElementById('qaContainer').innerHTML = '<p style="color:#ef4444;">Error: ' + esc(err.message) + '</p>';
       }
+    }
+
+    function loadQABank() {
+      const game = new URLSearchParams(location.search).get('game');
+      selectGame(gameLoaders[game] ? game : 'explorer');
     }
 
     function renderCurrentBatch() {
