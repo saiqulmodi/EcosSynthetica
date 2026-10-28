@@ -391,9 +391,9 @@
     const saveStore = () => { try { localStorage.setItem(PLAYER_KEY, JSON.stringify(players)); } catch (e) { /* storage blocked: lasts this visit */ } };
     const activePlayer = () => players.list.find(p => p.name === players.active) || null;
     const levelOf = (p, game) => (p.levels[game] = p.levels[game] || { score: 0, right: 0, wrong: 0, answered: {} });
-    // A level's score can be reset 12 hours after the level was started (or last reset);
+    // A level's score can be reset 3 hours after the level was started (or last reset);
     // the player then starts that level again from 0 with every question open.
-    const RESET_WAIT = 12 * 60 * 60 * 1000;
+    const RESET_WAIT = 3 * 60 * 60 * 1000;
     const resetLeft = (l) => (l.since ? Math.max(0, l.since + RESET_WAIT - Date.now()) : RESET_WAIT);
     function resetLevel(game) {
       const p = activePlayer();
