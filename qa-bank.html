@@ -98,12 +98,72 @@
       border: 1px solid #1e293b;
       color: #94a3b8;
     }
+    button.qa-option {
+      width: 100%;
+      text-align: left;
+      font: inherit;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    button.qa-option:hover:not(:disabled) { border-color: #38bdf8; color: #e2e8f0; }
+    button.qa-option:disabled { cursor: default; }
     .qa-option.correct {
       background: rgba(34, 197, 94, 0.12);
       border-color: #22c55e;
       color: #4ade80;
       font-weight: 600;
     }
+    .qa-option.wrong {
+      background: rgba(239, 68, 68, 0.12);
+      border-color: #ef4444;
+      color: #f87171;
+      font-weight: 600;
+    }
+    .qa-result { font-size: 13px; font-weight: 700; margin-top: 4px; }
+    .qa-result.plus { color: #4ade80; }
+    .qa-result.minus { color: #f87171; }
+    .player-bar {
+      max-width: 900px;
+      margin: 0 auto 20px;
+      background: #141c2e;
+      border: 1px solid #24324d;
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .player-bar input, .player-bar select {
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: #e2e8f0;
+      font-size: 14px;
+      min-width: 0;
+    }
+    .player-bar input { flex: 1 1 180px; }
+    .player-bar .btn-nav { padding: 8px 14px; }
+    .player-name { font-weight: 700; color: #f8fafc; }
+    .score-card {
+      flex: 1 1 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 8px;
+    }
+    .score-level {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+    .score-level.active { border-color: #0284c7; }
+    .score-level b { display: block; font-size: 20px; color: #f8fafc; }
+    .player-note { flex: 1 1 100%; font-size: 13px; color: #94a3b8; margin: 0; }
+    .player-note.warn { color: #fbbf24; }
     .qa-explanation {
       font-size: 13px;
       color: #cbd5e1;
@@ -148,6 +208,8 @@
     </div>
     <a href="index.html" class="btn-action">Back to Simulation</a>
   </div>
+
+  <div id="playerBar" class="player-bar"></div>
 
   <div class="game-tabs">
     <button class="game-tab" data-game="explorer" onclick="selectGame('explorer')">Eco Explorer · Class 1–10</button>
@@ -238,7 +300,8 @@
     // Three games, three question banks:
     //   explorer     - Class 1-10: content/questions/explorer/class-1..10 (+ Class 1-10 items of the Scientist packs)
     //   scientist    - Class 11-12: content/questions/scientist/form-0..3 (Class 11-12 items) + simulation stages
-    //   professional - NEET & MBBS: data/neet_academic_bank.json + data/chapters/* listed in data/manifest.json
+    //   professional - NEET & MBBS: content/questions/professional/neet-* (tools/build_neet_packs.py)
+    //                  + Class 11-12 items of the Scientist packs + data/neet_academic_bank.json + data/chapters/*
     const explorerFiles = Array.from({ length: 10 }, (_, i) => `content/questions/explorer/class-${i + 1}.json`);
     const scientistFiles = Array.from({ length: 4 }, (_, i) => `content/questions/scientist/form-${i}.json`);
 
@@ -291,16 +354,120 @@
         return [...stageQuestions, ...extraQuestions, ...sci.filter(q => q.cls >= 11).map(fromSchool)];
       },
       async professional() {
-        const manifest = await getJSON('data/manifest.json').catch(() => []);
-        const list = await loadAll(['data/neet_academic_bank.json', ...manifest.map(m => m.file)]);
-        return list.map(fromNeet);
+        const [packIndex, manifest] = await Promise.all([
+          getJSON('content/questions/professional/index.json').catch(() => []),
+          getJSON('data/manifest.json').catch(() => [])
+        ]);
+        const [neet, sci, data] = await Promise.all([
+          loadAll(packIndex.map(f => 'content/questions/professional/' + f)),
+          loadAll(scientistFiles),
+          loadAll(['data/neet_academic_bank.json', ...manifest.map(m => m.file)])
+        ]);
+        const school = [...sci.filter(q => q.cls >= 11), ...neet]
+          .sort((a, b) => a.subject.localeCompare(b.subject) || a.cls - b.cls || String(a.topic).localeCompare(String(b.topic)));
+        return [...data.map(fromNeet), ...school.map(q => ({ ...fromSchool(q), stageTitle: 'NEET · Class ' + q.cls + ' ' + q.subject }))];
       }
     };
+
+    // ---------- players and score cards (this device only) ----------
+    // Right answer +4, wrong answer -1, kept per level (game tab) on the player's card.
+    const PLAYER_KEY = 'ecos-qa-players-v1';
+    const LEVELS = { explorer: 'Eco Explorer · Class 1–10', scientist: 'Eco Scientist · Class 11–12', professional: 'Eco Professional · NEET & MBBS' };
+    const LETTERS = ['a', 'b', 'c', 'd', 'e', 'f'];
+    const readStore = () => { try { const v = JSON.parse(localStorage.getItem(PLAYER_KEY) || 'null'); return v && Array.isArray(v.list) ? v : null; } catch (e) { return null; } };
+    let players = readStore() || { active: null, list: [] };
+    const saveStore = () => { try { localStorage.setItem(PLAYER_KEY, JSON.stringify(players)); } catch (e) { /* storage blocked: lasts this visit */ } };
+    const activePlayer = () => players.list.find(p => p.name === players.active) || null;
+    const levelOf = (p, game) => (p.levels[game] = p.levels[game] || { score: 0, right: 0, wrong: 0, answered: {} });
+    // Short key for a question, so a question scores only once per player.
+    const qKey = (q) => { let h = 5381; const s = q.prompt + '|' + q.options.join('|'); for (let i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0; return h.toString(36); };
+
+    // Suggests the name of the player who is playing the game on this device.
+    function gameProfileName() {
+      try { const g = JSON.parse(localStorage.getItem('ecos-profiles-v2') || 'null'); const p = g && g.list.find(x => x.id === g.active); return p ? p.name : ''; } catch (e) { return ''; }
+    }
+
+    function registerPlayer() {
+      const input = document.getElementById('playerName');
+      const name = input.value.trim().slice(0, 24);
+      if (!name) { input.focus(); return; }
+      if (!players.list.some(p => p.name.toLowerCase() === name.toLowerCase())) players.list.push({ name, created: new Date().toISOString(), levels: {} });
+      players.active = players.list.find(p => p.name.toLowerCase() === name.toLowerCase()).name;
+      saveStore();
+      renderPlayer();
+      renderCurrentBatch();
+    }
+
+    function switchPlayer(name) {
+      players.active = name || null;
+      saveStore();
+      renderPlayer();
+      if (allQuestions.length) renderCurrentBatch();
+    }
+
+    function renderPlayer(note) {
+      const bar = document.getElementById('playerBar');
+      const p = activePlayer();
+      const others = players.list.length
+        ? `<select onchange="switchPlayer(this.value)"><option value="">${p ? 'Change player…' : 'Choose a player…'}</option>${players.list.map(x => `<option value="${esc(x.name)}">${esc(x.name)}</option>`).join('')}</select>`
+        : '';
+      if (!p) {
+        bar.innerHTML = `
+          <span class="player-name">Register to score:</span>
+          <input id="playerName" maxlength="24" placeholder="Your name" value="${esc(gameProfileName())}" onkeydown="if (event.key === 'Enter') registerPlayer()">
+          <button class="btn-nav" onclick="registerPlayer()">Register</button>
+          ${others}
+          <p class="player-note ${note ? 'warn' : ''}">${note || 'Right answer +4 marks, wrong answer −1 mark. Your score is added to your card for each level.'}</p>`;
+        return;
+      }
+      bar.innerHTML = `
+        <span>Player: <span class="player-name">${esc(p.name)}</span></span>
+        ${others}
+        <button class="btn-nav" onclick="switchPlayer('')">New player</button>
+        <div class="score-card">
+          ${Object.entries(LEVELS).map(([g, label]) => { const l = levelOf(p, g); return `
+            <div class="score-level ${g === currentGame ? 'active' : ''}">${esc(label)}<b>${l.score}</b>✓ ${l.right} right · ✗ ${l.wrong} wrong</div>`; }).join('')}
+        </div>`;
+    }
+
+    function answer(i, choice) {
+      const p = activePlayer();
+      if (!p) { renderPlayer('Please register your name first, so your marks go on your card.'); document.getElementById('playerName').focus(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+      const q = allQuestions[i];
+      const l = levelOf(p, currentGame);
+      const k = qKey(q);
+      if (k in l.answered) return;
+      l.answered[k] = choice;
+      if (choice === q.correctIndex) { l.right++; l.score += 4; } else { l.wrong++; l.score -= 1; }
+      saveStore();
+      renderPlayer();
+      document.getElementById('qa-' + i).outerHTML = cardHTML(q, i);
+    }
+
+    function cardHTML(q, i) {
+      const p = activePlayer();
+      const picked = p ? levelOf(p, currentGame).answered[qKey(q)] : undefined;
+      const done = picked !== undefined;
+      return `
+        <div class="qa-card" id="qa-${i}">
+          <div class="qa-stage">${esc(q.stageTitle)} • ${esc(q.pillar)}</div>
+          <div class="qa-question">${esc(q.prompt)}</div>
+          <div class="qa-options">
+            ${q.options.map((opt, j) => {
+              const cls = done && j === q.correctIndex ? 'correct' : done && j === picked ? 'wrong' : '';
+              return `<button class="qa-option ${cls}" ${done ? 'disabled' : ''} onclick="answer(${i}, ${j})">${LETTERS[j]}. ${esc(opt)}</button>`;
+            }).join('')}
+          </div>
+          ${done ? `<div class="qa-result ${picked === q.correctIndex ? 'plus' : 'minus'}">${picked === q.correctIndex ? 'Right answer: +4 marks' : 'Wrong answer: −1 mark'}</div>
+          <div class="qa-explanation"><em>${esc(q.explanation)}</em></div>` : ''}
+        </div>`;
+    }
 
     async function selectGame(game) {
       currentGame = game;
       currentBatch = 0;
       document.querySelectorAll('.game-tab').forEach(b => b.classList.toggle('active', b.dataset.game === game));
+      renderPlayer();
       document.getElementById('qaContainer').innerHTML = '<p style="color: #94a3b8;">Loading knowledge bank...</p>';
       try {
         if (!gameCache[game]) gameCache[game] = dedupe(await gameLoaders[game]());
@@ -325,20 +492,7 @@
       const currentList = allQuestions.slice(start, end);
       const totalBatches = Math.ceil(allQuestions.length / batchSize) || 1;
 
-      container.innerHTML = currentList.map(q => `
-        <div class="qa-card">
-          <div class="qa-stage">${esc(q.stageTitle)} • ${esc(q.pillar)}</div>
-          <div class="qa-question">${esc(q.prompt)}</div>
-          <div class="qa-options">
-            ${q.options.map((opt, i) => `
-              <div class="qa-option ${i === q.correctIndex ? 'correct' : ''}">
-                ${i === q.correctIndex ? '✓ ' : '• '} ${esc(opt)}
-              </div>
-            `).join('')}
-          </div>
-          <div class="qa-explanation"><em>${esc(q.explanation)}</em></div>
-        </div>
-      `).join('');
+      container.innerHTML = currentList.map((q, k) => cardHTML(q, start + k)).join('');
 
       document.getElementById('batchInfo').innerText = `Batch ${currentBatch + 1} of ${totalBatches} (${allQuestions.length} Total Questions)`;
       document.getElementById('btnPrev').disabled = currentBatch === 0;
