@@ -1,0 +1,26 @@
+{
+  "name": "modis_ecossynthetica",
+  "version": "1.0.0",
+  "description": "A 3D browser game (Three.js) for PC and phone, in English, Hindi and Bengali. Fungi, bacteria, viruses, insects, algae, lichens, worms and others are shown from their own side first: how they survive, what they give the living world, what Earth would lose without them, and where their energy comes from and goes. Then the player answers them with the defences life really evolved, and sees how humans came to understand each one: belief, then observation, then science (with Indian history such as neem, turmeric, Ayurveda, J. C. Bose, Ronald Ross in Secunderabad and the Madras TB study).",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saiqulmodi/EcosSynthetica.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/saiqulmodi/EcosSynthetica/issues"
+  },
+  "homepage": "https://github.com/saiqulmodi/EcosSynthetica#readme",
+  "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/cli": "^8.5.3",
+    "@capacitor/core": "^8.5.3"
+  }
+}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Ecos-Synthetica</string>
+    <string name="title_activity_main">Ecos-Synthetica</string>
+    <string name="package_name">com.ecossynthetica.app</string>
+    <string name="custom_url_scheme">com.ecossynthetica.app</string>
+</resources>
