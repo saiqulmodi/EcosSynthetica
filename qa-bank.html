@@ -137,144 +137,116 @@
   </div>
 
   <script>
-    let allQuestions = [    ,
-    {
-      stage: "WOLF PACK",
-      category: "TROPHIC DYNAMICS",
-      question: "How does apex predator predation regulate lower trophic biomass?",
-      options: [
-        "? Top-down suppression of herbivore overgrazing",
-        "Direct nutrient injection into soil horizons",
-        "Suppression of primary solar capture",
-        "Elimination of primary decomposer bacteria"
-      ],
-      explanation: "Apex carnivores initiate trophic cascades that limit herbivore density and restore vegetation cover."
-    },
-    {
-      stage: "DECOMPOSER",
-      category: "MINERAL CYCLING",
-      question: "What biochemical role do saprophytic microbes serve in soil ecology?",
-      options: [
-        "? Enzymatic breakdown of organic polymers into inorganic ions",
-        "Direct conversion of light into fixed carbon",
-        "Locking atmospheric nitrogen permanently into bedrock",
-        "Thermal sterilization of rhizosphere pathogens"
-      ],
-      explanation: "Saprophytes mineralize dead organic substrates, re-releasing soluble N, P, and K into the soil solution."
-    },
-    {
-      stage: "PLANT SEEDLING",
-      category: "NUTRIENT UPTAKE",
-      question: "Which root zone transport process moves mineral ions against their concentration gradient?",
-      options: [
-        "? Active transport powered by ATP hydrolysis via proton pumps",
-        "Simple diffusion through cuticular wax layers",
-        "Passive bulk flow through dead xylem tracheids",
-        "Suberin membrane osmosis"
-      ],
-      explanation: "Proton ATPase pumps create an electrochemical gradient driving active secondary symport of mineral ions."
-    },
-    {
-      stage: "HONEY BEE",
-      category: "ECOLOGICAL INTERACTION",
-      question: "In floral fidelity, how does pollinator consistency benefit the plant community?",
-      options: [
-        "? Maximizes conspecific pollen transfer while minimizing gamete loss",
-        "Accelerates nectar depletion to starve competitor insects",
-        "Induces rapid somatic polyploidy in floral petals",
-        "Prevents root mycorrhizae from absorbing nitrogen"
-      ],
-      explanation: "Flower constancy prevents heterospecific pollen clogging, ensuring high fertilization efficiency."
-    },
-    {
-      stage: "CANOPY FOREST",
-      category: "LIGHT ATTENUATION",
-      question: "How do understory shade-tolerant plants adapt physiologically to low photosynthetic photon flux?",
-      options: [
-        "? Lower light compensation point with high chlorophyll b to a ratio",
-        "Complete suppression of rubisco oxygenase activity",
-        "Production of thick, multi-layered cuticular epidermis",
-        "Direct conversion of thermal infrared into sucrose"
-      ],
-      explanation: "Understory plants invest in broader antenna complexes with higher chlorophyll b to harvest diffuse blue and red wavelengths."
-    }
-  ];
+    // The 5 questions added on 28-Oct, in the same shape as questions.json.
+    const extraQuestions = [
+      {
+        stageTitle: "Wolf Pack",
+        pillar: "Trophic Dynamics",
+        prompt: "How does apex predator predation regulate lower trophic biomass?",
+        options: [
+          "Top-down suppression of herbivore overgrazing",
+          "Direct nutrient injection into soil horizons",
+          "Suppression of primary solar capture",
+          "Elimination of primary decomposer bacteria"
+        ],
+        correctIndex: 0,
+        explanation: "Apex carnivores initiate trophic cascades that limit herbivore density and restore vegetation cover."
+      },
+      {
+        stageTitle: "Decomposer",
+        pillar: "Mineral Cycling",
+        prompt: "What biochemical role do saprophytic microbes serve in soil ecology?",
+        options: [
+          "Enzymatic breakdown of organic polymers into inorganic ions",
+          "Direct conversion of light into fixed carbon",
+          "Locking atmospheric nitrogen permanently into bedrock",
+          "Thermal sterilization of rhizosphere pathogens"
+        ],
+        correctIndex: 0,
+        explanation: "Saprophytes mineralize dead organic substrates, re-releasing soluble N, P, and K into the soil solution."
+      },
+      {
+        stageTitle: "Plant Seedling",
+        pillar: "Nutrient Uptake",
+        prompt: "Which root zone transport process moves mineral ions against their concentration gradient?",
+        options: [
+          "Active transport powered by ATP hydrolysis via proton pumps",
+          "Simple diffusion through cuticular wax layers",
+          "Passive bulk flow through dead xylem tracheids",
+          "Suberin membrane osmosis"
+        ],
+        correctIndex: 0,
+        explanation: "Proton ATPase pumps create an electrochemical gradient driving active secondary symport of mineral ions."
+      },
+      {
+        stageTitle: "Honey Bee",
+        pillar: "Ecological Interaction",
+        prompt: "In floral fidelity, how does pollinator consistency benefit the plant community?",
+        options: [
+          "Maximizes conspecific pollen transfer while minimizing gamete loss",
+          "Accelerates nectar depletion to starve competitor insects",
+          "Induces rapid somatic polyploidy in floral petals",
+          "Prevents root mycorrhizae from absorbing nitrogen"
+        ],
+        correctIndex: 0,
+        explanation: "Flower constancy prevents heterospecific pollen clogging, ensuring high fertilization efficiency."
+      },
+      {
+        stageTitle: "Canopy Forest",
+        pillar: "Light Attenuation",
+        prompt: "How do understory shade-tolerant plants adapt physiologically to low photosynthetic photon flux?",
+        options: [
+          "Lower light compensation point with high chlorophyll b to a ratio",
+          "Complete suppression of rubisco oxygenase activity",
+          "Production of thick, multi-layered cuticular epidermis",
+          "Direct conversion of thermal infrared into sucrose"
+        ],
+        correctIndex: 0,
+        explanation: "Understory plants invest in broader antenna complexes with higher chlorophyll b to harvest diffuse blue and red wavelengths."
+      }
+    ];
+
+    // The game's question bank: Explorer class packs and Scientist form packs
+    // (same files js/Quiz.js and the tiers load).
+    const bankFiles = [
+      ...Array.from({ length: 10 }, (_, i) => `content/questions/explorer/class-${i + 1}.json`),
+      ...Array.from({ length: 4 }, (_, i) => `content/questions/scientist/form-${i}.json`)
+    ];
+
+    let allQuestions = [];
     let currentBatch = 0;
     const batchSize = 3; // Shows 3 questions per batch
 
+    const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+    async function getJSON(url) {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(url + ' HTTP ' + res.status);
+      return res.json();
+    }
+
     async function loadQABank() {
       try {
-        const res = await fetch('./questions.json');
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const data = await res.json();
-        const stages = data.stages || [    ,
-    {
-      stage: "WOLF PACK",
-      category: "TROPHIC DYNAMICS",
-      question: "How does apex predator predation regulate lower trophic biomass?",
-      options: [
-        "? Top-down suppression of herbivore overgrazing",
-        "Direct nutrient injection into soil horizons",
-        "Suppression of primary solar capture",
-        "Elimination of primary decomposer bacteria"
-      ],
-      explanation: "Apex carnivores initiate trophic cascades that limit herbivore density and restore vegetation cover."
-    },
-    {
-      stage: "DECOMPOSER",
-      category: "MINERAL CYCLING",
-      question: "What biochemical role do saprophytic microbes serve in soil ecology?",
-      options: [
-        "? Enzymatic breakdown of organic polymers into inorganic ions",
-        "Direct conversion of light into fixed carbon",
-        "Locking atmospheric nitrogen permanently into bedrock",
-        "Thermal sterilization of rhizosphere pathogens"
-      ],
-      explanation: "Saprophytes mineralize dead organic substrates, re-releasing soluble N, P, and K into the soil solution."
-    },
-    {
-      stage: "PLANT SEEDLING",
-      category: "NUTRIENT UPTAKE",
-      question: "Which root zone transport process moves mineral ions against their concentration gradient?",
-      options: [
-        "? Active transport powered by ATP hydrolysis via proton pumps",
-        "Simple diffusion through cuticular wax layers",
-        "Passive bulk flow through dead xylem tracheids",
-        "Suberin membrane osmosis"
-      ],
-      explanation: "Proton ATPase pumps create an electrochemical gradient driving active secondary symport of mineral ions."
-    },
-    {
-      stage: "HONEY BEE",
-      category: "ECOLOGICAL INTERACTION",
-      question: "In floral fidelity, how does pollinator consistency benefit the plant community?",
-      options: [
-        "? Maximizes conspecific pollen transfer while minimizing gamete loss",
-        "Accelerates nectar depletion to starve competitor insects",
-        "Induces rapid somatic polyploidy in floral petals",
-        "Prevents root mycorrhizae from absorbing nitrogen"
-      ],
-      explanation: "Flower constancy prevents heterospecific pollen clogging, ensuring high fertilization efficiency."
-    },
-    {
-      stage: "CANOPY FOREST",
-      category: "LIGHT ATTENUATION",
-      question: "How do understory shade-tolerant plants adapt physiologically to low photosynthetic photon flux?",
-      options: [
-        "? Lower light compensation point with high chlorophyll b to a ratio",
-        "Complete suppression of rubisco oxygenase activity",
-        "Production of thick, multi-layered cuticular epidermis",
-        "Direct conversion of thermal infrared into sucrose"
-      ],
-      explanation: "Understory plants invest in broader antenna complexes with higher chlorophyll b to harvest diffuse blue and red wavelengths."
-    }
-  ];
-        allQuestions = stages.flatMap(s => 
-          s.questions.map(q => ({ ...q, stageTitle: s.title }))
+        const stageData = await getJSON('./questions.json').catch(() => ({ stages: [] }));
+        const gameQuestions = (stageData.stages || []).flatMap(s =>
+          (s.questions || []).map(q => ({ ...q, stageTitle: s.title }))
         );
+
+        const packs = await Promise.all(bankFiles.map(f => getJSON(f).catch(() => [])));
+        const bankQuestions = packs.flat().map(q => ({
+          stageTitle: 'Class ' + q.cls + ' ' + (q.subject || ''),
+          pillar: q.topic || '',
+          prompt: q.q,
+          options: q.opts || [],
+          correctIndex: q.ans,
+          explanation: q.why || ''
+        }));
+
+        allQuestions = [...gameQuestions, ...extraQuestions, ...bankQuestions];
+        if (!allQuestions.length) throw new Error('No questions found. Open the game through serve.py or GitHub Pages, not as a file.');
         renderCurrentBatch();
       } catch (err) {
-        document.getElementById('qaContainer').innerHTML = '<p style="color:#ef4444;">Error: ' + err.message + '</p>';
+        document.getElementById('qaContainer').innerHTML = '<p style="color:#ef4444;">Error: ' + esc(err.message) + '</p>';
       }
     }
 
@@ -287,16 +259,16 @@
 
       container.innerHTML = currentList.map(q => `
         <div class="qa-card">
-          <div class="qa-stage">${q.stageTitle} • ${q.pillar}</div>
-          <div class="qa-question">${q.prompt}</div>
+          <div class="qa-stage">${esc(q.stageTitle)} • ${esc(q.pillar)}</div>
+          <div class="qa-question">${esc(q.prompt)}</div>
           <div class="qa-options">
             ${q.options.map((opt, i) => `
               <div class="qa-option ${i === q.correctIndex ? 'correct' : ''}">
-                ${i === q.correctIndex ? '? ' : '• '} ${opt}
+                ${i === q.correctIndex ? '✓ ' : '• '} ${esc(opt)}
               </div>
             `).join('')}
           </div>
-          <div class="qa-explanation"><em>${q.explanation}</em></div>
+          <div class="qa-explanation"><em>${esc(q.explanation)}</em></div>
         </div>
       `).join('');
 
@@ -315,4 +287,3 @@
   </script>
 </body>
 </html>
-
