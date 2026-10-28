@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -137,7 +137,68 @@
   </div>
 
   <script>
-    let allQuestions = [];
+    let allQuestions = [    ,
+    {
+      stage: "WOLF PACK",
+      category: "TROPHIC DYNAMICS",
+      question: "How does apex predator predation regulate lower trophic biomass?",
+      options: [
+        "? Top-down suppression of herbivore overgrazing",
+        "Direct nutrient injection into soil horizons",
+        "Suppression of primary solar capture",
+        "Elimination of primary decomposer bacteria"
+      ],
+      explanation: "Apex carnivores initiate trophic cascades that limit herbivore density and restore vegetation cover."
+    },
+    {
+      stage: "DECOMPOSER",
+      category: "MINERAL CYCLING",
+      question: "What biochemical role do saprophytic microbes serve in soil ecology?",
+      options: [
+        "? Enzymatic breakdown of organic polymers into inorganic ions",
+        "Direct conversion of light into fixed carbon",
+        "Locking atmospheric nitrogen permanently into bedrock",
+        "Thermal sterilization of rhizosphere pathogens"
+      ],
+      explanation: "Saprophytes mineralize dead organic substrates, re-releasing soluble N, P, and K into the soil solution."
+    },
+    {
+      stage: "PLANT SEEDLING",
+      category: "NUTRIENT UPTAKE",
+      question: "Which root zone transport process moves mineral ions against their concentration gradient?",
+      options: [
+        "? Active transport powered by ATP hydrolysis via proton pumps",
+        "Simple diffusion through cuticular wax layers",
+        "Passive bulk flow through dead xylem tracheids",
+        "Suberin membrane osmosis"
+      ],
+      explanation: "Proton ATPase pumps create an electrochemical gradient driving active secondary symport of mineral ions."
+    },
+    {
+      stage: "HONEY BEE",
+      category: "ECOLOGICAL INTERACTION",
+      question: "In floral fidelity, how does pollinator consistency benefit the plant community?",
+      options: [
+        "? Maximizes conspecific pollen transfer while minimizing gamete loss",
+        "Accelerates nectar depletion to starve competitor insects",
+        "Induces rapid somatic polyploidy in floral petals",
+        "Prevents root mycorrhizae from absorbing nitrogen"
+      ],
+      explanation: "Flower constancy prevents heterospecific pollen clogging, ensuring high fertilization efficiency."
+    },
+    {
+      stage: "CANOPY FOREST",
+      category: "LIGHT ATTENUATION",
+      question: "How do understory shade-tolerant plants adapt physiologically to low photosynthetic photon flux?",
+      options: [
+        "? Lower light compensation point with high chlorophyll b to a ratio",
+        "Complete suppression of rubisco oxygenase activity",
+        "Production of thick, multi-layered cuticular epidermis",
+        "Direct conversion of thermal infrared into sucrose"
+      ],
+      explanation: "Understory plants invest in broader antenna complexes with higher chlorophyll b to harvest diffuse blue and red wavelengths."
+    }
+  ];
     let currentBatch = 0;
     const batchSize = 3; // Shows 3 questions per batch
 
@@ -146,7 +207,68 @@
         const res = await fetch('./questions.json');
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
-        const stages = data.stages || [];
+        const stages = data.stages || [    ,
+    {
+      stage: "WOLF PACK",
+      category: "TROPHIC DYNAMICS",
+      question: "How does apex predator predation regulate lower trophic biomass?",
+      options: [
+        "? Top-down suppression of herbivore overgrazing",
+        "Direct nutrient injection into soil horizons",
+        "Suppression of primary solar capture",
+        "Elimination of primary decomposer bacteria"
+      ],
+      explanation: "Apex carnivores initiate trophic cascades that limit herbivore density and restore vegetation cover."
+    },
+    {
+      stage: "DECOMPOSER",
+      category: "MINERAL CYCLING",
+      question: "What biochemical role do saprophytic microbes serve in soil ecology?",
+      options: [
+        "? Enzymatic breakdown of organic polymers into inorganic ions",
+        "Direct conversion of light into fixed carbon",
+        "Locking atmospheric nitrogen permanently into bedrock",
+        "Thermal sterilization of rhizosphere pathogens"
+      ],
+      explanation: "Saprophytes mineralize dead organic substrates, re-releasing soluble N, P, and K into the soil solution."
+    },
+    {
+      stage: "PLANT SEEDLING",
+      category: "NUTRIENT UPTAKE",
+      question: "Which root zone transport process moves mineral ions against their concentration gradient?",
+      options: [
+        "? Active transport powered by ATP hydrolysis via proton pumps",
+        "Simple diffusion through cuticular wax layers",
+        "Passive bulk flow through dead xylem tracheids",
+        "Suberin membrane osmosis"
+      ],
+      explanation: "Proton ATPase pumps create an electrochemical gradient driving active secondary symport of mineral ions."
+    },
+    {
+      stage: "HONEY BEE",
+      category: "ECOLOGICAL INTERACTION",
+      question: "In floral fidelity, how does pollinator consistency benefit the plant community?",
+      options: [
+        "? Maximizes conspecific pollen transfer while minimizing gamete loss",
+        "Accelerates nectar depletion to starve competitor insects",
+        "Induces rapid somatic polyploidy in floral petals",
+        "Prevents root mycorrhizae from absorbing nitrogen"
+      ],
+      explanation: "Flower constancy prevents heterospecific pollen clogging, ensuring high fertilization efficiency."
+    },
+    {
+      stage: "CANOPY FOREST",
+      category: "LIGHT ATTENUATION",
+      question: "How do understory shade-tolerant plants adapt physiologically to low photosynthetic photon flux?",
+      options: [
+        "? Lower light compensation point with high chlorophyll b to a ratio",
+        "Complete suppression of rubisco oxygenase activity",
+        "Production of thick, multi-layered cuticular epidermis",
+        "Direct conversion of thermal infrared into sucrose"
+      ],
+      explanation: "Understory plants invest in broader antenna complexes with higher chlorophyll b to harvest diffuse blue and red wavelengths."
+    }
+  ];
         allQuestions = stages.flatMap(s => 
           s.questions.map(q => ({ ...q, stageTitle: s.title }))
         );
@@ -165,12 +287,12 @@
 
       container.innerHTML = currentList.map(q => `
         <div class="qa-card">
-          <div class="qa-stage">${q.stageTitle} • ${q.pillar}</div>
+          <div class="qa-stage">${q.stageTitle} â€¢ ${q.pillar}</div>
           <div class="qa-question">${q.prompt}</div>
           <div class="qa-options">
             ${q.options.map((opt, i) => `
               <div class="qa-option ${i === q.correctIndex ? 'correct' : ''}">
-                ${i === q.correctIndex ? '? ' : '• '} ${opt}
+                ${i === q.correctIndex ? '? ' : 'â€¢ '} ${opt}
               </div>
             `).join('')}
           </div>
@@ -193,3 +315,4 @@
   </script>
 </body>
 </html>
+
