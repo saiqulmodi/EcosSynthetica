@@ -4,3 +4,4 @@ server/*.db
 
 android/
 node_modules/
+tools/.icons/
