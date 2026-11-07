@@ -1,0 +1,53 @@
+"""Extra-Edge Q/A, Class 12 batch 2 (NEET + A-level / IB DP / AP topics)."""
+CLS = 12
+
+SETS = [
+    ("Physics", "NEET edge: Class 12 numericals", [
+        ("Two point charges of +1 μC each are 1 m apart in vacuum. The force between them is:", "9 × 10⁻³ N", ["9 × 10⁹ N", "1 N", "9 × 10⁻⁶ N"], "F = 9 × 10⁹ × 10⁻¹²."),
+        ("A parallel-plate capacitor's capacitance when plate separation is doubled:", "halves", ["doubles", "stays the same", "becomes four times"], "C = ε₀A/d."),
+        ("A 2 m wire moves at 5 m/s perpendicular to a 0.1 T field. The induced emf is:", "1 V", ["10 V", "0.1 V", "2.5 V"], "e = Blv."),
+        ("A coil's self-inductance is 2 H and current changes at 3 A/s. The induced emf is:", "6 V", ["1.5 V", "0.67 V", "5 V"], "e = L dI/dt."),
+        ("A 10 μF capacitor's reactance at 50 Hz is about:", "318 Ω", ["3.18 Ω", "3140 Ω", "31.8 Ω"], "Xc = 1/(2πfC)."),
+        ("The power factor of a purely inductive circuit is:", "zero", ["one", "0.5", "infinite"], "Phase difference 90°; no average power."),
+        ("A glass prism of angle 60° gives minimum deviation 30°. Its refractive index is:", "√2", ["1.5", "√3", "2"], "n = sin((A + D)/2)/sin(A/2) = sin 45°/sin 30°."),
+        ("The resolving power of a microscope increases when the wavelength used:", "decreases", ["increases", "is doubled", "does not matter"], "Electron microscopes use tiny wavelengths."),
+        ("A nucleus ²³⁸U emits an alpha particle. The new mass and atomic numbers are:", "234 and 90", ["238 and 91", "234 and 92", "236 and 90"], "A − 4, Z − 2."),
+        ("In beta-minus decay, a neutron changes into a:", "proton, electron and antineutrino", ["proton and positron", "neutron and gamma", "alpha particle"], "Z increases by 1."),
+    ]),
+    ("Chemistry", "NEET edge: Class 12 chemistry", [
+        ("Packing efficiency of a face-centred cubic (ccp) lattice is:", "74%", ["68%", "52.4%", "100%"], "bcc is 68%, simple cubic 52.4%."),
+        ("The number of atoms per unit cell in a bcc lattice is:", "2", ["1", "4", "6"], "8 × ⅛ + 1."),
+        ("Schottky defects lower the:", "density of the crystal", ["mass of each ion", "size of each ion", "charge on each ion"], "Equal numbers of cations and anions are missing."),
+        ("Azeotropes boil:", "at a constant temperature with the same composition in vapour and liquid", ["over a range of temperatures", "only under vacuum", "without vapour"], "They cannot be separated by simple distillation."),
+        ("Which gas is used in the extraction of gold and silver by leaching with cyanide?", "air (oxygen)", ["hydrogen", "chlorine", "nitrogen"], "Mac-Arthur–Forrest cyanide process."),
+        ("Zone refining is used to get very pure:", "silicon and germanium", ["iron and copper", "sodium", "aluminium"], "Impurities stay in the molten zone."),
+        ("The froth flotation process is used for concentrating:", "sulphide ores", ["oxide ores", "carbonate ores", "native metals"], "Pine oil collects the ore particles."),
+        ("The colour of KMnO₄ is due to:", "charge transfer (no d–d)", ["d–d transitions", "f–f transitions", "free electrons"], "Mn(VII) has a d⁰ configuration."),
+        ("Grignard reagent reacts with formaldehyde, then acid, to give a:", "primary alcohol", ["secondary alcohol", "tertiary alcohol", "ketone"], "Ketones give tertiary alcohols."),
+        ("Vulcanisation of rubber involves heating it with:", "sulphur", ["chlorine", "carbon", "oxygen"], "Sulphur cross-links make it tougher."),
+    ]),
+    ("Biology", "NEET edge: Class 12 biology", [
+        ("In humans, the primary oocyte stays arrested in prophase I from:", "before birth until puberty", ["puberty to menopause only", "fertilisation onwards", "ovulation to implantation"], "Meiosis I completes just before ovulation."),
+        ("The secondary oocyte completes meiosis II:", "only after a sperm enters it", ["before ovulation", "at birth", "in the ovary"], "Forms the ovum and second polar body."),
+        ("A man with blood group A (IᴬIᴼ) and a woman with group B (IᴮIᴼ) can have children of:", "all four blood groups", ["only A and B", "only AB", "only O"], "AB, A, B and O are all possible."),
+        ("A colour-blind man and a normal (non-carrier) woman will have:", "all daughters carriers and all sons normal", ["all sons colour-blind", "half the daughters colour-blind", "all children colour-blind"], "The father's X goes to daughters only."),
+        ("The enzyme that joins DNA fragments is:", "DNA ligase", ["DNA polymerase", "helicase", "restriction endonuclease"], "It seals the sugar-phosphate backbone."),
+        ("Gel electrophoresis separates DNA fragments by:", "size, small ones moving faster towards the anode", ["colour", "charge sign only, towards the cathode", "base sequence"], "DNA is negatively charged."),
+        ("In the Miller–Urey experiment, amino acids formed from:", "CH₄, NH₃, H₂ and water vapour with electric sparks", ["O₂ and CO₂", "DNA and proteins", "sugar and salt"], "Simulated early Earth."),
+        ("Adaptive radiation is seen in:", "Darwin's finches", ["peppered moths only", "a single species of bacteria", "the human appendix"], "Many forms from a common ancestor."),
+        ("Interferons are proteins that protect cells against:", "viruses", ["bacteria", "fungi", "worms"], "Released by virus-infected cells."),
+        ("Colostrum is rich in:", "IgA antibodies", ["IgE antibodies", "fats only", "red cells"], "Gives passive immunity to the newborn."),
+        ("The active form of the Bt toxin is produced in the:", "alkaline gut of the insect", ["bacterium itself", "plant's leaves", "soil"], "The inactive protoxin is activated by high pH."),
+        ("ELISA is based on the principle of:", "antigen–antibody interaction", ["DNA replication", "photosynthesis", "fermentation"], "Used to detect HIV."),
+    ]),
+    ("Botany", "NEET edge: Class 12 botany", [
+        ("Geitonogamy is pollination between:", "two flowers of the same plant", ["two flowers of different plants", "anther and stigma of the same flower", "a flower and an insect"], "Genetically it is like self-pollination."),
+        ("Xenogamy brings about:", "genetically different pollen to the stigma", ["no genetic change", "self-pollination", "apomixis"], "Pollen from another plant."),
+        ("Self-incompatibility in plants:", "prevents self-pollen from fertilising the ovule", ["helps self-pollination", "kills all pollen", "removes the stigma"], "It promotes outbreeding."),
+        ("A seed that has lost its endosperm and stores food in cotyledons is:", "non-albuminous (e.g. pea)", ["albuminous (e.g. wheat)", "perispermic (e.g. black pepper)", "parthenocarpic"], "Castor and maize are albuminous."),
+        ("Perisperm is the remains of the:", "nucellus", ["endosperm", "integument", "embryo"], "Found in black pepper and beet."),
+        ("The process where a population's growth slows as it nears carrying capacity is shown by a:", "logistic (S-shaped) curve", ["J-shaped curve", "straight line", "bell curve"], "dN/dt = rN(K − N)/K."),
+        ("Ecological succession on bare rock starts with:", "lichens", ["trees", "grasses", "shrubs"], "Pioneer species."),
+        ("The amount of biomass available to consumers is the:", "net primary productivity", ["gross primary productivity", "secondary productivity only", "standing crop of animals"], "NPP = GPP − respiration."),
+    ]),
+]
