@@ -1,0 +1,60 @@
+"""Extra-Edge Q/A, Class 12 batch 3: ecology, microbes, populations, health (NCERT + NEET + AP/IB)."""
+CLS = 12
+
+SETS = [
+    ("Biology", "Microbes in human welfare", [
+        ("Swiss cheese has large holes because of CO₂ made by:", "Propionibacterium sharmanii", ["Lactobacillus", "Saccharomyces cerevisiae", "Aspergillus niger"], "The same bacterium adds flavour."),
+        ("Citric acid is produced commercially by:", "Aspergillus niger", ["Acetobacter aceti", "Clostridium butylicum", "Lactobacillus"], "A fungus."),
+        ("Statins are made by the yeast:", "Monascus purpureus", ["Trichoderma polysporum", "Streptococcus", "Penicillium notatum"], "They lower blood cholesterol."),
+        ("Cyclosporin A, used after organ transplants, comes from:", "Trichoderma polysporum", ["Monascus purpureus", "Streptomyces", "Rhizobium"], "It suppresses the immune system."),
+        ("Streptokinase, a 'clot buster', is made by:", "Streptococcus", ["Staphylococcus", "E. coli", "Bacillus thuringiensis"], "Used in heart attack patients."),
+        ("Biogas is mostly:", "methane", ["carbon monoxide", "hydrogen", "ethane"], "Made by methanogens such as Methanobacterium."),
+        ("In secondary sewage treatment, the flocs are masses of:", "bacteria with fungal filaments", ["algae only", "sand particles", "protozoa only"], "They digest organic matter and lower BOD."),
+        ("Baculoviruses used as biocontrol agents belong to the genus:", "Nucleopolyhedrovirus", ["Bacillus", "Trichoderma", "Rhizobium"], "Species-specific insecticides."),
+    ]),
+    ("Biology", "Organisms, populations and biodiversity", [
+        ("An interaction in which one species is harmed and the other is unaffected is:", "amensalism", ["commensalism", "mutualism", "parasitism"], "Written as (−, 0)."),
+        ("Orchids growing on mango branches show:", "commensalism", ["parasitism", "amensalism", "predation"], "The orchid gains, the tree is unaffected."),
+        ("Gause's competitive exclusion principle says:", "two species competing for the same limited resource cannot coexist indefinitely", ["predators always win", "all species cooperate", "parasites kill their hosts"], "One will be eliminated."),
+        ("The age pyramid of a growing population is:", "triangular with a broad base", ["bell-shaped", "urn-shaped", "inverted"], "Many young individuals."),
+        ("The species–area relationship is written as:", "log S = log C + Z log A", ["S = A²", "S = Z/A", "log A = S + Z"], "Alexander von Humboldt; Z is usually 0.1–0.2."),
+        ("The 'rivet popper' hypothesis was given by:", "Paul Ehrlich", ["David Tilman", "Charles Darwin", "Robert May"], "Losing species weakens the ecosystem like losing rivets."),
+        ("Biodiversity hotspots in India include:", "the Western Ghats and Sri Lanka", ["the Thar Desert", "the Gangetic plain", "the Deccan plateau"], "Also the Himalaya and Indo-Burma."),
+        ("Which zone of a biosphere reserve allows no human activity?", "core zone", ["buffer zone", "transition zone", "manipulation zone"], "Research is allowed in the buffer."),
+    ]),
+    ("Biology", "Human health and disease", [
+        ("Ringworm is caused by fungi such as:", "Microsporum, Trichophyton and Epidermophyton", ["Plasmodium", "Ascaris", "Salmonella"], "Dry scaly lesions on skin and nails."),
+        ("The infective stage of Plasmodium entering humans is the:", "sporozoite", ["merozoite", "gametocyte", "trophozoite"], "Injected by the female Anopheles."),
+        ("Chills and high fever in malaria occur because of the release of:", "haemozoin from ruptured RBCs", ["histamine", "insulin", "bilirubin"], "Every 3–4 days."),
+        ("Amoebic dysentery is caused by:", "Entamoeba histolytica", ["Giardia", "Trypanosoma", "Leishmania"], "Houseflies carry the cysts."),
+        ("Primary lymphoid organs are:", "bone marrow and thymus", ["spleen and lymph nodes", "tonsils and Peyer's patches", "appendix and liver"], "Lymphocytes mature here."),
+        ("Cocaine acts by interfering with the transport of:", "dopamine", ["insulin", "acetylcholine only", "GABA"], "It gives euphoria and is addictive."),
+        ("Benign tumours differ from malignant ones in that they:", "stay confined and do not spread", ["spread to other organs", "grow uncontrollably everywhere", "are always fatal"], "Malignant tumours metastasise."),
+        ("Active immunity is produced by:", "a vaccine or infection", ["ready-made antibodies", "colostrum", "antitoxin injection"], "The body makes its own antibodies and memory cells."),
+    ]),
+    ("Botany", "Ecosystem and plant growth strategies", [
+        ("Standing crop refers to the:", "biomass present at a trophic level at a given time", ["energy lost as heat", "rate of photosynthesis", "number of species"], "Measured as fresh or dry weight per area."),
+        ("The detritus food chain begins with:", "dead organic matter", ["green plants", "herbivores", "top carnivores"], "Decomposers are the main players."),
+        ("Humification produces humus, which is:", "dark, amorphous and resistant to decomposition", ["quickly broken down", "only inorganic salts", "a living fungus"], "It acts as a nutrient reservoir."),
+        ("The phosphorus cycle differs from the carbon cycle in having:", "no significant gaseous phase", ["a large atmospheric reservoir", "no role of decomposers", "no rocks involved"], "Rocks are its main reservoir."),
+        ("Photosynthetically active radiation (PAR) is about what share of incident sunlight?", "less than 50%", ["about 90%", "100%", "1–5% only"], "Plants capture only 2–10% of PAR."),
+        ("A secondary succession begins:", "where a community existed before, e.g. abandoned farmland", ["on bare rock", "in newly formed lava", "in a newly formed pond only"], "It is faster than primary succession."),
+    ]),
+    ("Physics", "Semiconductors and wave optics in depth", [
+        ("In a full-wave rectifier with 50 Hz input, the output ripple frequency is:", "100 Hz", ["50 Hz", "25 Hz", "200 Hz"], "Both half-cycles are used."),
+        ("The energy gap of silicon at room temperature is about:", "1.1 eV", ["0.7 eV", "5.4 eV", "0.01 eV"], "Germanium is about 0.7 eV; diamond ~5.4 eV."),
+        ("A light-emitting diode works in:", "forward bias", ["reverse bias", "breakdown only", "no bias"], "Electron–hole recombination emits light."),
+        ("A photodiode is operated in:", "reverse bias", ["forward bias", "zero bias only", "breakdown"], "Change in reverse current is easier to measure."),
+        ("In single-slit diffraction, the central maximum is:", "twice as wide as the other maxima", ["the same width", "half as wide", "dark"], "Angular width 2λ/a."),
+        ("Huygens' principle treats every point on a wavefront as a:", "source of secondary wavelets", ["sink of energy", "ray of light", "fixed node"], "Their envelope is the new wavefront."),
+    ]),
+    ("Chemistry", "Haloalkanes, amines and coordination in depth", [
+        ("Chloroform is stored in dark bottles because in light and air it forms:", "phosgene (COCl₂), a poison", ["chlorine", "methane", "ethanol"], "A little ethanol is added too."),
+        ("DDT is a:", "chlorinated insecticide that persists in food chains", ["fertiliser", "harmless sugar", "plant hormone"], "Banned in many countries."),
+        ("Aniline does not undergo Friedel–Crafts reaction because:", "–NH₂ forms a salt with AlCl₃", ["it is too reactive", "benzene ring is absent", "it is a gas"], "The ring becomes deactivated."),
+        ("Diazonium salts of aromatic amines are made at:", "0–5 °C with NaNO₂ and HCl", ["100 °C", "room temperature with water only", "500 °C"], "They decompose when warm."),
+        ("The coordination number of Fe in [Fe(C₂O₄)₃]³⁻ is:", "6", ["3", "4", "9"], "Oxalate is bidentate."),
+        ("EDTA is a:", "hexadentate ligand", ["monodentate ligand", "bidentate ligand", "neutral ion"], "Used to treat lead poisoning."),
+        ("The spectrochemical series places which ligand as strongest field?", "CO", ["I⁻", "Cl⁻", "H₂O"], "CO > CN⁻ > en > NH₃ > H₂O > F⁻ > Cl⁻ > I⁻."),
+    ]),
+]
