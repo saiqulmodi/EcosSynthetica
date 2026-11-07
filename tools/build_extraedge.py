@@ -7,6 +7,7 @@ Every question is checked: 4 different options, the right answer is not among th
 ones, and no question repeats, either inside the new bank or against any question already
 in the game (explorer, scientist, professional packs and data/*). Repeats are dropped and listed.
 
+Repeated questions inside the scientist packs are removed (first copy kept).
 Class 1-7: content/questions/explorer/class-1..7.json become empty lists (file names kept,
 so the game code is unchanged) and Class 1-7 items are taken out of the scientist packs.
 
@@ -51,6 +52,23 @@ def remove_class_1_to_7():
     print("  explorer/class-1..7.json: emptied")
 
 
+def remove_scientist_repeats():
+    """The same question must not appear twice: keep its first copy (form-0 first)."""
+    seen = set()
+    for f in sorted((Q / "scientist").glob("form-*.json")):
+        items = load(f)
+        kept = []
+        for x in items:
+            k = norm(x.get("q", ""))
+            if k in seen:
+                continue
+            seen.add(k)
+            kept.append(x)
+        if len(kept) != len(items):
+            dump(f, kept)
+            print(f"  {f.relative_to(ROOT).as_posix()}: removed {len(items) - len(kept)} repeated questions ({len(kept)} left)")
+
+
 def existing_questions():
     seen = set()
     files = list((Q / "explorer").glob("*.json")) + list((Q / "scientist").glob("*.json")) + list((Q / "professional").glob("neet-*.json"))
@@ -71,6 +89,7 @@ def existing_questions():
 def main():
     print("Removing Class 1-7 Q/A")
     remove_class_1_to_7()
+    remove_scientist_repeats()
     old = existing_questions()
     banks, problems, repeats, mine = {}, [], [], set()
     for f in sorted(SRC.glob("xe_*.py")):

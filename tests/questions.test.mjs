@@ -12,7 +12,8 @@ const ex = Array.from({ length: 10 }, (_, i) => load(`explorer/class-${i + 1}.js
 const au = [...sci, ...ex].filter((q) => String(q.id).startsWith('au-'));
 
 // 690 until 08-Nov-2026; the 85 Class 1-7 ones were removed with the rest of the Class 1-7 Q/A.
-check('605 authored questions are in the packs', au.length === 605, String(au.length));
+// 604 since repeated questions were removed (one authored item repeated an older one).
+check('604 authored questions are in the packs', au.length === 604, String(au.length));
 const built = bankItems(au, au.length);
 check('every authored question builds into a 4-option quiz item', built.length === au.length, `${built.length}/${au.length}`);
 check('the right answer is kept after shuffling', built.every((b) => { const src = au.find((q) => q.q === b.q); return src && b.opts[b.ans] === src.opts[src.ans]; }));
